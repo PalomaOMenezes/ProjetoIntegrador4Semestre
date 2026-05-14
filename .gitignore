@@ -1,0 +1,19 @@
+# Pastas virtuais e pacotes Python
+Back-End/.venv/
+**/__pycache__/
+**/*.pyc
+
+# Banco de dados
+Back-End/poc.db
+
+# Cache de ferramentas
+Back-End/.pytest_cache/
+Back-End/.ruff_cache/
+.coverage
+
+
+# Arquivos do sistema operacional e editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
