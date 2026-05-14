@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Agende sua consulta odontológica online com rapidez e sem complicação. Atendimento moderno, humanizado e acessível para toda a família."
+    />
+    <title>SmileClinic — Cuide do seu sorriso com facilidade</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Menu principal">
+      <div class="nav-container">
+        <a href="#inicio" class="nav-logo" aria-label="SmileClinic - Página inicial">
+          <span class="logo-icon" aria-hidden="true">&#9679;</span>
+          SmileClinic
+        </a>
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-controls="nav-menu"
+          aria-expanded="false"
+          aria-label="Abrir menu de navegação"
+        >
+          <span class="hamburger"></span>
+          <span class="hamburger"></span>
+          <span class="hamburger"></span>
+        </button>
+        <ul class="nav-menu" id="nav-menu" role="list">
+          <li><a href="#servicos" class="nav-link">Serviços</a></li>
+          <li><a href="#depoimentos" class="nav-link">Depoimentos</a></li>
+          <li><a href="#agendamento" class="nav-link">Convênios</a></li>
+          <li>
+            <a href="#formulario" class="nav-cta" id="nav-cta-agendar">
+              Agendar Consulta
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main>
+
+      <section class="hero" id="inicio" aria-labelledby="hero-titulo">
+        <div class="hero-container">
+          <div class="hero-content">
+            <p class="hero-tag">Odontologia moderna e acessível</p>
+            <h1 class="hero-titulo" id="hero-titulo">
+              Uma experiência dental
+              <em>diferente</em>, por design.
+            </h1>
+            <p class="hero-subtitulo">
+              Atendimento sem julgamentos, tecnologia de ponta e equipe
+              dedicada. Agende sua consulta online em minutos.
+            </p>
+            <div class="hero-acoes">
+              <a href="#formulario" class="btn btn-primario" id="hero-cta-agendar">
+                Agendar Agora
+              </a>
+              <a href="#servicos" class="btn btn-secundario" id="hero-cta-servicos">
+                Ver Serviços
+              </a>
+            </div>
+            <div class="hero-prova-social" aria-label="Avaliação dos pacientes">
+              <div class="estrelas" aria-hidden="true">
+                &#9733;&#9733;&#9733;&#9733;&#9733;
+              </div>
+              <p>
+                <strong>+800 avaliações</strong> 5 estrelas de pacientes
+                satisfeitos
+              </p>
+            </div>
+          </div>
+          <div class="hero-imagem" aria-hidden="true">
+            <div class="imagem-wrapper">
+              <img src="assets/hero-bg.jpg" alt="Consultório odontológico moderno e iluminado" class="hero-img" />
+            </div>
+            <div class="badge-flutuante badge-1">
+              <span class="badge-numero">98%</span>
+              <span class="badge-texto">Satisfação</span>
+            </div>
+            <div class="badge-flutuante badge-2">
+              <span class="badge-numero">&#9660; 15min</span>
+              <span class="badge-texto">Tempo médio de espera</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="servicos" id="servicos" aria-labelledby="servicos-titulo">
+        <div class="section-container">
+          <div class="section-cabecalho">
+            <p class="section-tag">O que oferecemos</p>
+            <h2 class="section-titulo" id="servicos-titulo">
+              Serviços completos para seu sorriso
+            </h2>
+            <p class="section-subtitulo">
+              Da prevenção à estética, cobrimos todas as suas necessidades
+              odontológicas com a mais alta qualidade.
+            </p>
+          </div>
+          <ul class="servicos-grid" role="list">
+            <li class="servico-card" id="servico-consulta">
+              <div class="servico-icone" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-check"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="m9 16 2 2 4-4"/></svg></div>
+              <h3 class="servico-titulo">Primeira Consulta</h3>
+              <p class="servico-descricao">
+                Check-in fácil, curta espera e ambiente acolhedor. Venha
+                conhecer a diferença de um atendimento realmente humanizado.
+              </p>
+              <a href="#formulario" class="servico-link" id="link-consulta" aria-label="Agendar Primeira Consulta">
+                Agendar &rarr;
+              </a>
+            </li>
+            <li class="servico-card destaque" id="servico-limpeza">
+              <div class="servico-tag-destaque">Mais Procurado</div>
+              <div class="servico-icone" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2-1 4-2 7-2 2.5 0 4.5 1 6.5 2a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div>
+              <h3 class="servico-titulo">Limpeza e Profilaxia</h3>
+              <p class="servico-descricao">
+                Remoção de tártaro, polimento e orientação de higiene bucal.
+                Sessão completa em até 60 minutos.
+              </p>
+              <a href="#formulario" class="servico-link" id="link-limpeza" aria-label="Agendar Limpeza e Profilaxia">
+                Agendar &rarr;
+              </a>
+            </li>
+            <li class="servico-card" id="servico-emergencia">
+              <div class="servico-icone" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-zap"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></div>
+              <h3 class="servico-titulo">Atendimento de Urgência</h3>
+              <p class="servico-descricao">
+                Dor de dente não espera. Atendimento no mesmo dia para casos
+                urgentes, agendado online instantaneamente.
+              </p>
+              <a href="#formulario" class="servico-link" id="link-emergencia" aria-label="Agendar Atendimento de Urgência">
+                Agendar &rarr;
+              </a>
+            </li>
+            <li class="servico-card" id="servico-ortodontia">
+              <div class="servico-icone" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-smile"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg></div>
+              <h3 class="servico-titulo">Ortodontia</h3>
+              <p class="servico-descricao">
+                Aparelhos fixos, móveis e alinhadores transparentes. Sorriso
+                alinhado com o tratamento ideal para seu caso.
+              </p>
+              <a href="#formulario" class="servico-link" id="link-ortodontia" aria-label="Agendar Ortodontia">
+                Agendar &rarr;
+              </a>
+            </li>
+            <li class="servico-card" id="servico-clareamento">
+              <div class="servico-icone" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></div>
+              <h3 class="servico-titulo">Clareamento Dental</h3>
+              <p class="servico-descricao">
+                Sorriso mais brilhante em uma única sessão. Resultado
+                profissional e duradouro com técnica segura.
+              </p>
+              <a href="#formulario" class="servico-link" id="link-clareamento" aria-label="Agendar Clareamento Dental">
+                Agendar &rarr;
+              </a>
+            </li>
+            <li class="servico-card" id="servico-implante">
+              <div class="servico-icone" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-crown"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></svg></div>
+              <h3 class="servico-titulo">Implantes</h3>
+              <p class="servico-descricao">
+                Especialistas em implantes com tecnologia 3D guiada para
+                resultados precisos e duradouros.
+              </p>
+              <a href="#formulario" class="servico-link" id="link-implante" aria-label="Agendar Implantes">
+                Agendar &rarr;
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="depoimentos" id="depoimentos" aria-labelledby="depoimentos-titulo">
+        <div class="section-container">
+          <div class="section-cabecalho">
+            <p class="section-tag">O que dizem nossos pacientes</p>
+            <h2 class="section-titulo" id="depoimentos-titulo">
+              Sorrisos que falam por si
+            </h2>
+          </div>
+          <div class="depoimentos-grid" role="list">
+            <article class="depoimento-card" role="listitem">
+              <div class="depoimento-estrelas" aria-label="5 estrelas" aria-hidden="true">
+                &#9733;&#9733;&#9733;&#9733;&#9733;
+              </div>
+              <blockquote class="depoimento-texto">
+                "Marquei pelo site e fui atendida no horário. A equipe é
+                incrível, muito atenciosa. Nunca tive tanto cuidado em uma
+                consulta odontológica."
+              </blockquote>
+              <footer class="depoimento-autor">
+                <div class="autor-avatar" aria-hidden="true">C</div>
+                <div>
+                  <p class="autor-nome">Camila P.</p>
+                  <p class="autor-servico">Limpeza e Profilaxia</p>
+                </div>
+              </footer>
+            </article>
+            <article class="depoimento-card" role="listitem">
+              <div class="depoimento-estrelas" aria-label="5 estrelas" aria-hidden="true">
+                &#9733;&#9733;&#9733;&#9733;&#9733;
+              </div>
+              <blockquote class="depoimento-texto">
+                "A equipe administrativa é sempre gentil. Me sinto ouvido e
+                compreendido. O serviço é de alta qualidade e o atendimento é
+                muito humano."
+              </blockquote>
+              <footer class="depoimento-autor">
+                <div class="autor-avatar" aria-hidden="true">D</div>
+                <div>
+                  <p class="autor-nome">Diego T.</p>
+                  <p class="autor-servico">Consulta de Avaliação</p>
+                </div>
+              </footer>
+            </article>
+            <article class="depoimento-card" role="listitem">
+              <div class="depoimento-estrelas" aria-label="5 estrelas" aria-hidden="true">
+                &#9733;&#9733;&#9733;&#9733;&#9733;
+              </div>
+              <blockquote class="depoimento-texto">
+                "A higienista explicou cada etapa da limpeza. O dentista se
+                preocupou com como eu estava. É uma clínica centrada no
+                paciente e você não vai se arrepender."
+              </blockquote>
+              <footer class="depoimento-autor">
+                <div class="autor-avatar" aria-hidden="true">J</div>
+                <div>
+                  <p class="autor-nome">Juliana F.</p>
+                  <p class="autor-servico">Limpeza e Profilaxia</p>
+                </div>
+              </footer>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="convenios" id="agendamento" aria-labelledby="convenios-titulo">
+        <div class="section-container">
+          <div class="convenios-inner">
+            <div class="convenios-texto">
+              <p class="section-tag">Convênios aceitos</p>
+              <h2 class="section-titulo" id="convenios-titulo">
+                Atendemos os principais planos de saúde
+              </h2>
+              <p class="section-subtitulo">
+                Trabalhamos com a maioria dos convênios odontológicos. Não
+                encontrou o seu? Entre em contato e verificamos para você.
+              </p>
+              <ul class="convenios-lista" role="list">
+                <li class="convenio-item">&#10003; Unimed Odonto</li>
+                <li class="convenio-item">&#10003; Bradesco Saúde</li>
+                <li class="convenio-item">&#10003; SulAmérica</li>
+                <li class="convenio-item">&#10003; Porto Seguro</li>
+                <li class="convenio-item">&#10003; Amil</li>
+                <li class="convenio-item">&#10003; OdontoPrev</li>
+              </ul>
+            </div>
+            <div class="convenios-numeros" aria-label="Estatísticas da clínica">
+              <div class="numero-card">
+                <span class="numero-valor">+12</span>
+                <span class="numero-label">anos de experiência</span>
+              </div>
+              <div class="numero-card">
+                <span class="numero-valor">+5k</span>
+                <span class="numero-label">pacientes atendidos</span>
+              </div>
+              <div class="numero-card">
+                <span class="numero-valor">98%</span>
+                <span class="numero-label">índice de satisfação</span>
+              </div>
+              <div class="numero-card">
+                <span class="numero-valor">8+</span>
+                <span class="numero-label">especialidades</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="formulario-section" id="formulario" aria-labelledby="formulario-titulo">
+        <div class="section-container">
+          <div class="formulario-inner">
+            <div class="formulario-info">
+              <p class="section-tag">Pré-agendamento</p>
+              <h2 class="section-titulo" id="formulario-titulo">
+                Agende sua consulta agora
+              </h2>
+              <p class="section-subtitulo">
+                Preencha o formulário e nossa equipe entrará em contato em até
+                24 horas para confirmar seu horário.
+              </p>
+              <ul class="formulario-beneficios" role="list">
+                <li>&#10003; Sem taxa de agendamento</li>
+                <li>&#10003; Confirmação via WhatsApp ou e-mail</li>
+                <li>&#10003; Cancelamento gratuito até 24h antes</li>
+              </ul>
+            </div>
+
+            <form
+              class="formulario"
+              id="form-agendamento"
+              novalidate
+              aria-labelledby="formulario-titulo"
+            >
+              <div class="form-grupo">
+                <label for="nome" class="form-label">Nome completo</label>
+                <input
+                  type="text"
+                  id="nome"
+                  name="nome"
+                  class="form-input"
+                  placeholder="Seu nome completo"
+                  autocomplete="name"
+                  required
+                  aria-required="true"
+                  aria-describedby="nome-erro"
+                />
+                <span class="form-erro" id="nome-erro" role="alert" aria-live="polite"></span>
+              </div>
+
+              <div class="form-grupo">
+                <label for="email" class="form-label">E-mail</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="form-input"
+                  placeholder="seu@email.com"
+                  autocomplete="email"
+                  required
+                  aria-required="true"
+                  aria-describedby="email-erro"
+                />
+                <span class="form-erro" id="email-erro" role="alert" aria-live="polite"></span>
+              </div>
+
+              <div class="form-grupo">
+                <label for="telefone" class="form-label">Telefone / WhatsApp</label>
+                <input
+                  type="tel"
+                  id="telefone"
+                  name="telefone"
+                  class="form-input"
+                  placeholder="(11) 99999-9999"
+                  autocomplete="tel"
+                  required
+                  aria-required="true"
+                  aria-describedby="telefone-erro"
+                />
+                <span class="form-erro" id="telefone-erro" role="alert" aria-live="polite"></span>
+              </div>
+
+              <div class="form-grupo">
+                <label for="servico" class="form-label">Serviço desejado</label>
+                <select
+                  id="servico"
+                  name="servico"
+                  class="form-input form-select"
+                  required
+                  aria-required="true"
+                  aria-describedby="servico-erro"
+                >
+                  <option value="" disabled selected>Selecione um serviço</option>
+                  <option value="primeira-consulta">Primeira Consulta</option>
+                  <option value="limpeza">Limpeza e Profilaxia</option>
+                  <option value="emergencia">Atendimento de Urgência</option>
+                  <option value="ortodontia">Ortodontia</option>
+                  <option value="clareamento">Clareamento Dental</option>
+                  <option value="implante">Implantes</option>
+                  <option value="outro">Outro</option>
+                </select>
+                <span class="form-erro" id="servico-erro" role="alert" aria-live="polite"></span>
+              </div>
+
+              <div class="form-grupo">
+                <label for="mensagem" class="form-label">
+                  Mensagem <span class="form-opcional">(opcional)</span>
+                </label>
+                <textarea
+                  id="mensagem"
+                  name="mensagem"
+                  class="form-input form-textarea"
+                  placeholder="Descreva sua necessidade ou dúvida..."
+                  rows="3"
+                  aria-describedby="mensagem-dica"
+                ></textarea>
+                <span class="form-dica" id="mensagem-dica">
+                  Máximo de 500 caracteres
+                </span>
+              </div>
+
+              <button
+                type="submit"
+                class="btn btn-primario btn-formulario"
+                id="btn-submit"
+                aria-describedby="form-status"
+              >
+                <span class="btn-texto">Solicitar Agendamento</span>
+                <span class="btn-spinner" aria-hidden="true"></span>
+              </button>
+
+              <div
+                class="form-feedback"
+                id="form-status"
+                role="status"
+                aria-live="polite"
+                aria-atomic="true"
+              ></div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer" role="contentinfo">
+      <div class="footer-container">
+        <div class="footer-marca">
+          <a href="#inicio" class="nav-logo" aria-label="SmileClinic">
+            <span class="logo-icon" aria-hidden="true">&#9679;</span>
+            SmileClinic
+          </a>
+          <p class="footer-descricao">
+            Cuidamos do seu sorriso com tecnologia e humanidade.
+          </p>
+        </div>
+        <nav class="footer-nav" aria-label="Links do rodapé">
+          <div class="footer-coluna">
+            <h3 class="footer-titulo">Serviços</h3>
+            <ul role="list">
+              <li><a href="#servicos">Limpeza</a></li>
+              <li><a href="#servicos">Ortodontia</a></li>
+              <li><a href="#servicos">Clareamento</a></li>
+              <li><a href="#servicos">Implantes</a></li>
+            </ul>
+          </div>
+          <div class="footer-coluna">
+            <h3 class="footer-titulo">Contato</h3>
+            <ul role="list">
+              <li><a href="tel:+5511999999999">(11) 99999-9999</a></li>
+              <li><a href="mailto:contato@smileclinic.com.br">contato@smileclinic.com.br</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="footer-rodape">
+        <p>&copy; 2026 SmileClinic. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
