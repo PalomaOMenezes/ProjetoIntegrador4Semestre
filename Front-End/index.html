@@ -25,7 +25,6 @@
     <nav class="navbar" id="navbar" role="navigation" aria-label="Menu principal">
       <div class="nav-container">
         <a href="#inicio" class="nav-logo" aria-label="SmileClinic - Página inicial">
-          <span class="logo-icon" aria-hidden="true">&#9679;</span>
           SmileClinic
         </a>
         <button
@@ -58,7 +57,6 @@
       <section class="hero" id="inicio" aria-labelledby="hero-titulo">
         <div class="hero-container">
           <div class="hero-content">
-            <p class="hero-tag">Odontologia moderna e acessível</p>
             <h1 class="hero-titulo" id="hero-titulo">
               Uma experiência dental
               <em>diferente</em>, por design.
@@ -69,33 +67,39 @@
             </p>
             <div class="hero-acoes">
               <a href="#formulario" class="btn btn-primario" id="hero-cta-agendar">
-                Agendar Agora
+                Agendar consulta
               </a>
               <a href="#servicos" class="btn btn-secundario" id="hero-cta-servicos">
-                Ver Serviços
+                Ver serviços
               </a>
             </div>
-            <div class="hero-prova-social" aria-label="Avaliação dos pacientes">
-              <div class="estrelas" aria-hidden="true">
-                &#9733;&#9733;&#9733;&#9733;&#9733;
+            <div class="hero-prova-social" aria-label="Avaliação 4,9 de 5 com mais de 800 pacientes">
+              <div class="estrelas-svg" aria-hidden="true">
+                <svg viewBox="0 0 20 20"><path d="M10 1.8l2.47 5.01 5.53.8-4 3.9.94 5.51L10 14.42l-4.94 2.6.94-5.51-4-3.9 5.53-.8L10 1.8z"/></svg>
+                <svg viewBox="0 0 20 20"><path d="M10 1.8l2.47 5.01 5.53.8-4 3.9.94 5.51L10 14.42l-4.94 2.6.94-5.51-4-3.9 5.53-.8L10 1.8z"/></svg>
+                <svg viewBox="0 0 20 20"><path d="M10 1.8l2.47 5.01 5.53.8-4 3.9.94 5.51L10 14.42l-4.94 2.6.94-5.51-4-3.9 5.53-.8L10 1.8z"/></svg>
+                <svg viewBox="0 0 20 20"><path d="M10 1.8l2.47 5.01 5.53.8-4 3.9.94 5.51L10 14.42l-4.94 2.6.94-5.51-4-3.9 5.53-.8L10 1.8z"/></svg>
+                <svg viewBox="0 0 20 20"><path d="M10 1.8l2.47 5.01 5.53.8-4 3.9.94 5.51L10 14.42l-4.94 2.6.94-5.51-4-3.9 5.53-.8L10 1.8z"/></svg>
               </div>
-              <p>
-                <strong>+800 avaliações</strong> 5 estrelas de pacientes
-                satisfeitos
-              </p>
+              <span class="prova-nota">4,9</span>
+              <span class="prova-divisor" aria-hidden="true"></span>
+              <p><strong>+800 avaliações</strong> de pacientes</p>
             </div>
           </div>
-          <div class="hero-imagem" aria-hidden="true">
+          <div class="hero-imagem">
             <div class="imagem-wrapper">
               <img src="assets/hero-bg.jpg" alt="Consultório odontológico moderno e iluminado" class="hero-img" />
-            </div>
-            <div class="badge-flutuante badge-1">
-              <span class="badge-numero">98%</span>
-              <span class="badge-texto">Satisfação</span>
-            </div>
-            <div class="badge-flutuante badge-2">
-              <span class="badge-numero">&#9660; 15min</span>
-              <span class="badge-texto">Tempo médio de espera</span>
+              <div class="hero-dock" aria-label="Indicadores de atendimento">
+                <div class="hero-dock-item">
+                  <span class="hero-dock-valor">98%</span>
+                  <span class="hero-dock-rotulo">Satisfação</span>
+                </div>
+                <span class="hero-dock-sep" aria-hidden="true"></span>
+                <div class="hero-dock-item">
+                  <span class="hero-dock-valor">&lt; 15 min</span>
+                  <span class="hero-dock-rotulo">Espera média</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -521,7 +525,6 @@
       <div class="footer-container">
         <div class="footer-marca">
           <a href="#inicio" class="nav-logo" aria-label="SmileClinic">
-            <span class="logo-icon" aria-hidden="true">&#9679;</span>
             SmileClinic
           </a>
           <p class="footer-descricao">
