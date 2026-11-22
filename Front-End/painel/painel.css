@@ -904,6 +904,312 @@ input[type="time"]::-webkit-calendar-picker-indicator:hover {
   stroke-linejoin: round;
 }
 
+/* ---------- Custom Date Picker (estilo iOS 60fps) ---------- */
+
+.sc-date-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+}
+
+.filtros-bar .sc-date-wrap,
+.barra-filtros .sc-date-wrap {
+  width: auto;
+}
+
+.sc-date-wrap > input[type="date"],
+.sc-date-native {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+.sc-date-trigger {
+  width: 100%;
+  height: 36px;
+  padding: 0 10px 0 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  text-align: left;
+  transition: border-color var(--dur-fast) var(--ease-ios), background-color var(--dur-fast) var(--ease-ios), box-shadow var(--dur-fast) var(--ease-ios), transform var(--dur-fast) var(--ease-ios);
+}
+
+.sc-date-trigger:hover:not(:disabled) {
+  border-color: var(--text-secondary);
+}
+
+.sc-date-trigger:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+.sc-date-trigger[aria-expanded="true"] {
+  border-color: var(--text-primary);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+.sc-date-trigger:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.sc-date-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sc-date-label.placeholder {
+  color: var(--text-tertiary);
+}
+
+.sc-date-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.65;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.68;
+  transition: opacity var(--dur-fast) var(--ease-ios);
+}
+
+.sc-date-trigger[aria-expanded="true"] .sc-date-icon {
+  opacity: 1;
+}
+
+.sc-date-popover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 130;
+  width: 276px;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-popover);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  box-shadow: var(--shadow-float);
+  opacity: 0;
+  transform: translate3d(0, -6px, 0) scale(0.97);
+  transform-origin: top left;
+  pointer-events: none;
+  will-change: opacity, transform;
+  transition: opacity 150ms var(--ease-ios), transform 200ms var(--ease-ios);
+}
+
+.sc-date-popover.para-cima {
+  transform: translate3d(0, 6px, 0) scale(0.97);
+  transform-origin: bottom left;
+}
+
+.sc-date-popover.aberto {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  pointer-events: auto;
+}
+
+.sc-date-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.sc-date-titulo {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 28px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: background-color var(--dur-fast) var(--ease-ios);
+}
+
+.sc-date-titulo:hover {
+  background: var(--bg-hover);
+}
+
+.sc-date-nav {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  display: grid;
+  place-items: center;
+  transition: background-color var(--dur-fast) var(--ease-ios), color var(--dur-fast) var(--ease-ios), transform var(--dur-fast) var(--ease-ios);
+}
+
+.sc-date-nav:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.sc-date-nav:active {
+  transform: scale(0.94);
+}
+
+.sc-date-nav svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sc-date-semana {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 4px;
+}
+
+.sc-date-semana span {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  padding: 4px 0;
+}
+
+.sc-date-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.sc-date-day {
+  height: 32px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 12.5px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  display: grid;
+  place-items: center;
+  position: relative;
+  transition: background-color var(--dur-fast) var(--ease-ios), color var(--dur-fast) var(--ease-ios), transform var(--dur-fast) var(--ease-ios);
+}
+
+.sc-date-day:hover {
+  background: var(--bg-hover);
+}
+
+.sc-date-day:active {
+  transform: scale(0.92);
+}
+
+.sc-date-day.fora {
+  color: var(--text-tertiary);
+  opacity: 0.55;
+}
+
+.sc-date-day.hoje:not(.selecionado) {
+  font-weight: 600;
+  box-shadow: inset 0 0 0 1px var(--border-strong);
+}
+
+.sc-date-day.selecionado {
+  background: var(--accent);
+  color: var(--accent-fg);
+  font-weight: 600;
+}
+
+.sc-date-meses-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 6px 0;
+}
+
+.sc-date-mes-btn {
+  height: 38px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-size: 12.5px;
+  font-weight: 500;
+  transition: background-color var(--dur-fast) var(--ease-ios), border-color var(--dur-fast) var(--ease-ios), color var(--dur-fast) var(--ease-ios);
+}
+
+.sc-date-mes-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-strong);
+}
+
+.sc-date-mes-btn.ativo {
+  background: var(--accent);
+  color: var(--accent-fg);
+  border-color: var(--accent);
+}
+
+.sc-date-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.sc-date-acao {
+  height: 26px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  transition: background-color var(--dur-fast) var(--ease-ios), color var(--dur-fast) var(--ease-ios);
+}
+
+.sc-date-acao:hover:not(:disabled) {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.sc-date-acao.destaque {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.sc-date-acao:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
 .visao-animada {
   animation: entradaSuave var(--dur-med) var(--ease-ios) both;
 }
