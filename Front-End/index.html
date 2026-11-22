@@ -23,10 +23,23 @@
   <body>
 
     <nav class="navbar" id="navbar" role="navigation" aria-label="Menu principal">
-      <div class="nav-container">
+      <div class="nav-shell">
         <a href="#inicio" class="nav-logo" aria-label="SmileClinic - Página inicial">
           SmileClinic
         </a>
+        <div class="nav-menu" id="nav-menu">
+          <ul class="nav-links" role="list">
+            <li><a href="#servicos" class="nav-link" data-nav-sec="servicos">Serviços</a></li>
+            <li><a href="#depoimentos" class="nav-link" data-nav-sec="depoimentos">Depoimentos</a></li>
+            <li><a href="#agendamento" class="nav-link" data-nav-sec="agendamento">Convênios</a></li>
+          </ul>
+          <div class="nav-acoes">
+            <a href="painel/login.html" class="nav-clinica">Área da clínica</a>
+            <a href="#formulario" class="nav-cta" id="nav-cta-agendar">
+              Agendar consulta
+            </a>
+          </div>
+        </div>
         <button
           class="nav-toggle"
           id="nav-toggle"
@@ -36,19 +49,7 @@
         >
           <span class="hamburger"></span>
           <span class="hamburger"></span>
-          <span class="hamburger"></span>
         </button>
-        <ul class="nav-menu" id="nav-menu" role="list">
-          <li><a href="#servicos" class="nav-link">Serviços</a></li>
-          <li><a href="#depoimentos" class="nav-link">Depoimentos</a></li>
-          <li><a href="#agendamento" class="nav-link">Convênios</a></li>
-          <li><a href="painel/login.html" class="nav-link">Área da clínica</a></li>
-          <li>
-            <a href="#formulario" class="nav-cta" id="nav-cta-agendar">
-              Agendar Consulta
-            </a>
-          </li>
-        </ul>
       </div>
     </nav>
 

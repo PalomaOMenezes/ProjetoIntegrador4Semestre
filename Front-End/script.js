@@ -187,12 +187,38 @@ navToggle.addEventListener('click', function() {
   this.setAttribute('aria-expanded', String(aberto));
 });
 
-document.querySelectorAll('.nav-menu .nav-link, .nav-menu .nav-cta').forEach(function(link) {
+document.querySelectorAll('.nav-menu .nav-link, .nav-menu .nav-clinica, .nav-menu .nav-cta').forEach(function(link) {
   link.addEventListener('click', function() {
     navMenu.classList.remove('aberto');
     navToggle.setAttribute('aria-expanded', 'false');
   });
 });
+
+/* ---------- Destaque automático da seção ativa na navbar ---------- */
+
+(function inicializarScrollSpyNav() {
+  const links = Array.from(document.querySelectorAll('.nav-link[data-nav-sec]'));
+  if (!links.length || !('IntersectionObserver' in window)) return;
+
+  const secoes = links
+    .map(function (l) { return document.getElementById(l.dataset.navSec); })
+    .filter(Boolean);
+
+  const observer = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        const id = entry.target.id;
+        links.forEach(function (l) {
+          l.classList.toggle('ativo', l.dataset.navSec === id);
+        });
+      });
+    },
+    { rootMargin: '-35% 0px -55% 0px' }
+  );
+
+  secoes.forEach(function (sec) { observer.observe(sec); });
+})();
 
 /* ---------- Carrossel contínuo de depoimentos (loop infinito 60fps) ---------- */
 
