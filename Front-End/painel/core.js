@@ -969,7 +969,7 @@ function renderizarCalendario() {
   if (!_calAtivo) return;
   const pop = garantirPopoverCalendario();
   const { input } = _calAtivo;
-  const hoje = hojeIso();
+  const hoje = hojeISO();
   const valAtual = input.value;
 
   const setaEsq =
@@ -1083,7 +1083,7 @@ function abrirCalendario(ctx) {
   const { input, trigger } = ctx;
   if (input.disabled) return;
 
-  const ref = parseIsoParts(input.value) || parseIsoParts(hojeIso());
+  const ref = parseIsoParts(input.value) || parseIsoParts(hojeISO());
   _calAno = ref.ano;
   _calMes = ref.mes;
   _calModo = 'dias';
@@ -1247,7 +1247,7 @@ function inicializarCalendariosCustomizados() {
     }
 
     if (e.target.closest('[data-cal-hoje]')) {
-      const hoje = hojeIso();
+      const hoje = hojeISO();
       const mudou = input.value !== hoje;
       input.value = hoje;
       fecharCalendario(true);
