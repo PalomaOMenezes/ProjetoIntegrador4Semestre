@@ -324,22 +324,57 @@
                 <li class="convenio-item">&#10003; OdontoPrev</li>
               </ul>
             </div>
-            <div class="convenios-numeros" aria-label="Estatísticas da clínica">
+            <div class="convenios-numeros" id="convenios-numeros" aria-label="Estatísticas da clínica">
               <div class="numero-card">
-                <span class="numero-valor">+12</span>
-                <span class="numero-label">anos de experiência</span>
+                <div class="numero-topo">
+                  <span class="numero-valor" data-count-to="12" data-prefix="+">+12</span>
+                  <span class="numero-label">anos de experiência</span>
+                </div>
+                <svg class="metric-spark" viewBox="0 0 140 36" aria-hidden="true">
+                  <path class="metric-spark-bg" d="M 4 30 C 28 28, 42 22, 62 19 C 86 16, 104 10, 136 5" />
+                  <path class="metric-spark-line" pathLength="100" d="M 4 30 C 28 28, 42 22, 62 19 C 86 16, 104 10, 136 5" />
+                  <circle class="metric-spark-end" cx="136" cy="5" r="3" />
+                </svg>
               </div>
               <div class="numero-card">
-                <span class="numero-valor">+5k</span>
-                <span class="numero-label">pacientes atendidos</span>
+                <div class="numero-topo">
+                  <span class="numero-valor" data-count-to="5" data-prefix="+" data-suffix="k" data-decimals="1">+5k</span>
+                  <span class="numero-label">pacientes atendidos</span>
+                </div>
+                <div class="metric-bars" aria-hidden="true">
+                  <span style="--h: 34%; --i: 0"></span>
+                  <span style="--h: 48%; --i: 1"></span>
+                  <span style="--h: 58%; --i: 2"></span>
+                  <span style="--h: 72%; --i: 3"></span>
+                  <span style="--h: 86%; --i: 4"></span>
+                  <span class="destaque" style="--h: 100%; --i: 5"></span>
+                </div>
+              </div>
+              <div class="numero-card numero-card-ring">
+                <div class="numero-topo">
+                  <span class="numero-valor" data-count-to="98" data-suffix="%">98%</span>
+                  <span class="numero-label">índice de satisfação</span>
+                </div>
+                <svg class="metric-ring" viewBox="0 0 52 52" aria-hidden="true">
+                  <circle class="metric-ring-track" cx="26" cy="26" r="21" />
+                  <circle class="metric-ring-fill" cx="26" cy="26" r="21" pathLength="100" />
+                </svg>
               </div>
               <div class="numero-card">
-                <span class="numero-valor">98%</span>
-                <span class="numero-label">índice de satisfação</span>
-              </div>
-              <div class="numero-card">
-                <span class="numero-valor">8+</span>
-                <span class="numero-label">especialidades</span>
+                <div class="numero-topo">
+                  <span class="numero-valor" data-count-to="8" data-suffix="+">8+</span>
+                  <span class="numero-label">especialidades</span>
+                </div>
+                <div class="metric-segments" aria-hidden="true">
+                  <span style="--i: 0"></span>
+                  <span style="--i: 1"></span>
+                  <span style="--i: 2"></span>
+                  <span style="--i: 3"></span>
+                  <span style="--i: 4"></span>
+                  <span style="--i: 5"></span>
+                  <span style="--i: 6"></span>
+                  <span style="--i: 7"></span>
+                </div>
               </div>
             </div>
           </div>

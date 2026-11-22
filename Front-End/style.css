@@ -547,30 +547,175 @@ img { max-width: 100%; display: block; }
 
 .numero-card {
   background: var(--cor-fundo);
-  border-radius: var(--raio);
-  padding: 28px 24px;
+  border-radius: 16px;
+  padding: 24px 22px;
   border: 1px solid var(--cor-borda);
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  transition: transform var(--transicao), box-shadow var(--transicao);
+  justify-content: space-between;
+  gap: 16px;
+  transition: transform var(--transicao), box-shadow var(--transicao), border-color var(--transicao), opacity 0.45s var(--ease-ios);
 }
 .numero-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--sombra-card);
+  border-color: rgba(26, 107, 74, 0.24);
+}
+
+.numero-card-ring {
+  flex-direction: row;
+  align-items: center;
+}
+
+.numero-topo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .numero-valor {
   font-size: 2rem;
-  font-weight: 800;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
   color: var(--cor-primaria);
   line-height: 1;
+  letter-spacing: -0.02em;
 }
 
 .numero-label {
   font-size: 0.85rem;
   color: var(--cor-texto-suave);
   font-weight: 500;
+}
+
+/* Micro-gráficos animados ao entrar no viewport */
+
+.convenios-numeros.aguardando .numero-card {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+}
+
+.convenios-numeros.animado .numero-card {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.convenios-numeros.animado .numero-card:nth-child(2) { transition-delay: 70ms; }
+.convenios-numeros.animado .numero-card:nth-child(3) { transition-delay: 140ms; }
+.convenios-numeros.animado .numero-card:nth-child(4) { transition-delay: 210ms; }
+
+.metric-spark {
+  width: 100%;
+  height: 36px;
+  overflow: visible;
+  display: block;
+}
+
+.metric-spark-bg {
+  fill: none;
+  stroke: var(--cor-acento-claro);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.metric-spark-line {
+  fill: none;
+  stroke: var(--cor-primaria);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.1s var(--ease-ios);
+}
+
+.metric-spark-end {
+  fill: var(--cor-primaria);
+  opacity: 1;
+  transition: opacity 0.3s var(--ease-ios) 0.85s;
+}
+
+.convenios-numeros.aguardando .metric-spark-line {
+  stroke-dashoffset: 100;
+}
+
+.convenios-numeros.aguardando .metric-spark-end {
+  opacity: 0;
+}
+
+.metric-bars {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  align-items: end;
+  gap: 6px;
+  height: 36px;
+}
+
+.metric-bars span {
+  height: var(--h);
+  border-radius: 4px;
+  background: rgba(26, 107, 74, 0.22);
+  transform-origin: bottom;
+  transform: scaleY(1);
+  transition: transform 0.7s var(--ease-ios);
+  transition-delay: calc(var(--i) * 60ms + 120ms);
+}
+
+.metric-bars span.destaque {
+  background: var(--cor-primaria);
+}
+
+.convenios-numeros.aguardando .metric-bars span {
+  transform: scaleY(0);
+}
+
+.metric-ring {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  transform: rotate(-90deg);
+}
+
+.metric-ring-track {
+  fill: none;
+  stroke: var(--cor-acento-claro);
+  stroke-width: 5;
+}
+
+.metric-ring-fill {
+  fill: none;
+  stroke: var(--cor-primaria);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 2;
+  transition: stroke-dashoffset 1.15s var(--ease-ios) 140ms;
+}
+
+.convenios-numeros.aguardando .metric-ring-fill {
+  stroke-dashoffset: 100;
+}
+
+.metric-segments {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 4px;
+  padding-top: 12px;
+}
+
+.metric-segments span {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--cor-primaria);
+  opacity: 1;
+  transform: scaleX(1);
+  transform-origin: left;
+  transition: transform 0.45s var(--ease-ios), opacity 0.45s var(--ease-ios);
+  transition-delay: calc(var(--i) * 55ms + 180ms);
+}
+
+.convenios-numeros.aguardando .metric-segments span {
+  opacity: 0.15;
+  transform: scaleX(0.2);
 }
 
 .formulario-section {

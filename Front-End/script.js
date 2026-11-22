@@ -362,3 +362,61 @@ let sincronizarSelectServico = function () {};
 
   sincronizar();
 })();
+
+/* ---------- Números e micro-gráficos animados ao rolar até estatísticas ---------- */
+
+(function inicializarEstatisticasAnimadas() {
+  const container = document.getElementById('convenios-numeros');
+  if (!container) return;
+
+  const reduzido =
+    window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduzido || !('IntersectionObserver' in window)) return;
+
+  const contadores = Array.from(container.querySelectorAll('[data-count-to]'));
+  container.classList.add('aguardando');
+
+  function formatarContador(el, valor, finalizado) {
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const decimals = Number(el.dataset.decimals || 0);
+    const num =
+      finalizado || decimals === 0
+        ? String(Math.round(valor))
+        : valor.toFixed(decimals).replace('.', ',');
+    return `${prefix}${num}${suffix}`;
+  }
+
+  function animarContadores() {
+    const duracao = 1100;
+    const inicio = performance.now();
+
+    function passo(agora) {
+      const t = Math.min(1, (agora - inicio) / duracao);
+      const ease = 1 - Math.pow(1 - t, 3);
+      contadores.forEach(function (el) {
+        const alvo = Number(el.dataset.countTo || 0);
+        el.textContent = formatarContador(el, alvo * ease, t >= 1);
+      });
+      if (t < 1) requestAnimationFrame(passo);
+    }
+
+    requestAnimationFrame(passo);
+  }
+
+  const observer = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        observer.disconnect();
+        container.classList.remove('aguardando');
+        container.classList.add('animado');
+        animarContadores();
+      });
+    },
+    { threshold: 0.25 }
+  );
+
+  observer.observe(container);
+})();
