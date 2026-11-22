@@ -618,16 +618,20 @@ img { max-width: 100%; display: block; }
   display: flex;
   width: max-content;
   will-change: transform;
-  animation: marqueeDepoimentos 48s linear infinite;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  animation: marqueeDepoimentos 68s linear infinite;
 }
 
-.depoimentos-marquee:hover .depoimentos-track,
-.depoimentos-marquee:focus-within .depoimentos-track {
-  animation-play-state: paused;
+@media (hover: hover) and (pointer: fine) {
+  .depoimentos-marquee:hover .depoimentos-track {
+    animation-play-state: paused;
+  }
 }
 
 .depoimentos-grupo {
   display: flex;
+  flex: 0 0 auto;
   align-items: stretch;
   gap: 24px;
   padding-right: 24px;
@@ -1417,7 +1421,9 @@ img { max-width: 100%; display: block; }
   .hero-img { height: 320px; }
 
   .servicos-grid { grid-template-columns: 1fr; }
-  .depoimento-card { flex: 0 0 300px; }
+  .depoimento-card { flex: 0 0 288px; padding: 22px 20px; }
+  .depoimentos-grupo { gap: 16px; padding-right: 16px; }
+  .depoimentos-track { animation-duration: 54s; }
   .depoimentos-marquee {
     -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 4%, #000 96%, transparent 100%);
     mask-image: linear-gradient(to right, transparent 0%, #000 4%, #000 96%, transparent 100%);
@@ -1436,16 +1442,8 @@ img { max-width: 100%; display: block; }
   .hero-imagem {
     animation: none;
   }
-  .depoimentos-marquee {
-    overflow-x: auto;
-    -webkit-mask-image: none;
-    mask-image: none;
-  }
   .depoimentos-track {
-    animation: none;
-  }
-  .depoimentos-grupo[aria-hidden="true"] {
-    display: none;
+    animation-duration: 90s;
   }
 }
 

@@ -528,6 +528,7 @@ function montarShell(paginaAtiva) {
   inicializarModais();
   inicializarSelectsCustomizados();
   inicializarCalendariosCustomizados();
+  inicializarTabelasResponsivas();
   return usuario;
 }
 
@@ -1304,6 +1305,36 @@ function inicializarCalendariosCustomizados() {
     }
   });
   obsData.observe(document.body, { childList: true, subtree: true });
+}
+
+/* ---------- Tabelas Responsivas (Cards empilhados no mobile) ---------- */
+
+function sincronizarTabelaResponsiva(tabela) {
+  if (!tabela) return;
+  const cabecalhos = Array.from(tabela.querySelectorAll('thead th')).map((th) =>
+    th.textContent.trim()
+  );
+  if (!cabecalhos.length) return;
+  tabela.classList.add('tabela-responsiva');
+  tabela.querySelectorAll('tbody tr').forEach((tr) => {
+    const celulas = tr.querySelectorAll('td');
+    if (celulas.length === 1 && celulas[0].hasAttribute('colspan')) return;
+    celulas.forEach((td, idx) => {
+      if (!td.hasAttribute('data-label') && cabecalhos[idx]) {
+        td.setAttribute('data-label', cabecalhos[idx]);
+      }
+    });
+  });
+}
+
+function inicializarTabelasResponsivas() {
+  $$('table').forEach(sincronizarTabelaResponsiva);
+  const obsTabelas = new MutationObserver(() => {
+    $$('table').forEach(sincronizarTabelaResponsiva);
+  });
+  $$('tbody').forEach((tb) => {
+    obsTabelas.observe(tb, { childList: true });
+  });
 }
 
 async function carregarMetadadosShell() {
