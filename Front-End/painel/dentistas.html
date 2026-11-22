@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Equipe - SmileClinic</title>
+    <script src="theme.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="painel.css" />
+  </head>
+  <body data-pagina="dentistas">
+    <div class="app-shell">
+      <div id="sidebar-slot"></div>
+
+      <main class="conteudo">
+        <header class="page-header">
+          <div class="page-header-titulo">
+            <h1>Equipe</h1>
+          </div>
+          <div class="page-acoes">
+            <button type="button" id="btn-novo-dentista" class="btn btn-primario">
+              + Novo profissional
+            </button>
+          </div>
+        </header>
+
+        <section class="card" aria-label="Profissionais cadastrados">
+          <div class="tabela-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Especialidade</th>
+                  <th>CRO</th>
+                  <th>E-mail</th>
+                  <th class="td-acoes">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="lista-dentistas"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Modal: Novo / Editar Profissional -->
+    <div id="modal-dentista" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-dentista">
+      <div class="modal-sheet">
+        <div class="modal-topo">
+          <h2 id="titulo-modal-dentista">Novo profissional</h2>
+          <button type="button" class="icon-btn" data-fechar-modal aria-label="Fechar">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <form id="form-dentista" class="form-grid">
+          <input type="hidden" name="id" />
+          <div class="campo">
+            <label for="d-nome">Nome completo</label>
+            <input id="d-nome" name="nome" class="input" required minlength="3" />
+          </div>
+          <div class="form-row">
+            <div class="campo">
+              <label for="d-cargo">Especialidade</label>
+              <input id="d-cargo" name="cargo" class="input" required minlength="3" placeholder="Clínico Geral" />
+            </div>
+            <div class="campo">
+              <label for="d-cro">CRO</label>
+              <input id="d-cro" name="cro" class="input tabular" required minlength="4" placeholder="CRO-SP 12345" />
+            </div>
+          </div>
+          <div class="campo">
+            <label for="d-email">E-mail</label>
+            <input id="d-email" name="email" type="email" class="input" required placeholder="nome@smileclinic.com" autocomplete="off" />
+          </div>
+          <div class="campo">
+            <label id="label-senha" for="d-senha">Senha inicial (mínimo 8 caracteres)</label>
+            <input id="d-senha" name="senha" type="password" class="input" required minlength="8" autocomplete="new-password" />
+          </div>
+          <p id="erro-dentista" class="erro-inline" role="alert"></p>
+          <div class="form-rodape">
+            <button type="button" class="btn btn-secundario" data-fechar-modal>Cancelar</button>
+            <button type="submit" class="btn btn-primario">Salvar profissional</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="core.js"></script>
+    <script src="painel.js"></script>
+  </body>
+</html>

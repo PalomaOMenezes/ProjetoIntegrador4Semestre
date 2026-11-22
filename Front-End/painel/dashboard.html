@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - SmileClinic</title>
+    <script src="theme.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="painel.css" />
+  </head>
+  <body data-pagina="dashboard">
+    <div class="app-shell">
+      <div id="sidebar-slot"></div>
+
+      <main class="conteudo">
+        <header class="page-header">
+          <div class="page-header-titulo">
+            <h1>Dashboard gerencial</h1>
+          </div>
+          <div class="page-acoes">
+            <button type="button" id="btn-exportar-csv" class="btn btn-primario">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              <span>Exportar relatório</span>
+            </button>
+          </div>
+        </header>
+
+        <section class="barra-filtros" aria-label="Período e filtros">
+          <div class="controle-data">
+            <button type="button" id="dash-mes-anterior" class="icon-btn" aria-label="Mês anterior">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+            <input type="date" id="dash-inicio" class="input tabular" aria-label="Data inicial" />
+            <span class="td-secundario">–</span>
+            <input type="date" id="dash-fim" class="input tabular" aria-label="Data final" />
+            <button type="button" id="dash-mes-seguinte" class="icon-btn" aria-label="Próximo mês">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          </div>
+
+          <select id="dash-dentista" class="select" aria-label="Filtrar por profissional"></select>
+
+          <span id="dash-comparativo" class="td-secundario tabular" style="margin-left: auto"></span>
+        </section>
+
+        <section class="kpi-grid" aria-label="Indicadores principais">
+          <div class="kpi-card">
+            <span class="kpi-rotulo">Faturamento bruto</span>
+            <span id="kpi-fat-bruto" class="kpi-valor">R$ 0</span>
+            <span id="kpi-fat-var" class="kpi-detalhe">—</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-rotulo">Valor recebido</span>
+            <span id="kpi-recebido" class="kpi-valor">R$ 0</span>
+            <span id="kpi-recebido-pct" class="kpi-detalhe">0% do faturamento</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-rotulo">A receber</span>
+            <span id="kpi-a-receber" class="kpi-valor">R$ 0</span>
+            <span id="kpi-a-receber-pct" class="kpi-detalhe">0% do faturamento</span>
+          </div>
+          <div class="kpi-card">
+            <span class="kpi-rotulo">Atendimentos realizados</span>
+            <span id="kpi-atendimentos" class="kpi-valor">0</span>
+            <span id="kpi-pacientes-periodo" class="kpi-detalhe">0 pacientes no período</span>
+          </div>
+        </section>
+
+        <section class="grid-2">
+          <div class="card">
+            <div class="card-topo">
+              <h2>Resumo de caixa</h2>
+            </div>
+            <div class="linha-metrica">
+              <span class="linha-metrica-rotulo">Recebimentos</span>
+              <span id="caixa-recebimentos" class="linha-metrica-valor">R$ 0</span>
+            </div>
+            <div class="linha-metrica">
+              <span class="linha-metrica-rotulo">Despesas pagas</span>
+              <span id="caixa-despesas" class="linha-metrica-valor">R$ 0</span>
+            </div>
+            <div class="barra-track" aria-hidden="true">
+              <div id="barra-caixa" class="barra-fill" style="width: 0%"></div>
+            </div>
+            <div class="saldo-destaque">
+              <span>Saldo do período</span>
+              <strong id="caixa-saldo">R$ 0</strong>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-topo">
+              <h2>Indicadores operacionais</h2>
+            </div>
+            <div class="linha-metrica">
+              <div style="flex: 1">
+                <div style="display: flex; justify-content: space-between; align-items: center">
+                  <span class="linha-metrica-rotulo">Ocupação da agenda</span>
+                  <span id="op-ocupacao" class="linha-metrica-valor">0%</span>
+                </div>
+                <div class="barra-track" aria-hidden="true">
+                  <div id="barra-ocupacao" class="barra-fill" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="linha-metrica">
+              <div style="flex: 1">
+                <div style="display: flex; justify-content: space-between; align-items: center">
+                  <span class="linha-metrica-rotulo">Taxa de faltas</span>
+                  <span id="op-faltas" class="linha-metrica-valor">0%</span>
+                </div>
+                <div class="barra-track" aria-hidden="true">
+                  <div id="barra-faltas" class="barra-fill" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="linha-metrica">
+              <span class="linha-metrica-rotulo">Ticket por atendimento</span>
+              <span id="op-ticket" class="linha-metrica-valor">R$ 0</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" aria-labelledby="titulo-evolucao">
+          <div class="card-topo">
+            <h2 id="titulo-evolucao">Receitas e despesas (6 meses)</h2>
+            <div class="chart-series-diretas">
+              <span class="chart-amostra"><span class="chart-sw chart-sw-rec" aria-hidden="true"></span>Receitas</span>
+              <span class="chart-amostra"><span class="chart-sw chart-sw-desp" aria-hidden="true"></span>Despesas</span>
+            </div>
+          </div>
+          <div id="grafico-evolucao" class="chart-wrap"></div>
+        </section>
+
+        <section class="card" aria-labelledby="titulo-prod">
+          <div class="card-topo">
+            <h2 id="titulo-prod">Produção por profissional</h2>
+          </div>
+          <div class="tabela-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Profissional</th>
+                  <th>Atendimentos realizados</th>
+                  <th>Faturamento</th>
+                </tr>
+              </thead>
+              <tbody id="lista-profissionais-dash"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="core.js"></script>
+    <script src="painel.js"></script>
+  </body>
+</html>

@@ -23,11 +23,23 @@
   <body>
 
     <nav class="navbar" id="navbar" role="navigation" aria-label="Menu principal">
-      <div class="nav-container">
+      <div class="nav-shell">
         <a href="#inicio" class="nav-logo" aria-label="SmileClinic - Página inicial">
-          <span class="logo-icon" aria-hidden="true">&#9679;</span>
           SmileClinic
         </a>
+        <div class="nav-menu" id="nav-menu">
+          <ul class="nav-links" role="list">
+            <li><a href="#servicos" class="nav-link" data-nav-sec="servicos">Serviços</a></li>
+            <li><a href="#depoimentos" class="nav-link" data-nav-sec="depoimentos">Depoimentos</a></li>
+            <li><a href="#agendamento" class="nav-link" data-nav-sec="agendamento">Convênios</a></li>
+          </ul>
+          <div class="nav-acoes">
+            <a href="painel/login.html" class="nav-clinica">Área da clínica</a>
+            <a href="#formulario" class="nav-cta" id="nav-cta-agendar">
+              Agendar consulta
+            </a>
+          </div>
+        </div>
         <button
           class="nav-toggle"
           id="nav-toggle"
@@ -37,18 +49,7 @@
         >
           <span class="hamburger"></span>
           <span class="hamburger"></span>
-          <span class="hamburger"></span>
         </button>
-        <ul class="nav-menu" id="nav-menu" role="list">
-          <li><a href="#servicos" class="nav-link">Serviços</a></li>
-          <li><a href="#depoimentos" class="nav-link">Depoimentos</a></li>
-          <li><a href="#agendamento" class="nav-link">Convênios</a></li>
-          <li>
-            <a href="#formulario" class="nav-cta" id="nav-cta-agendar">
-              Agendar Consulta
-            </a>
-          </li>
-        </ul>
       </div>
     </nav>
 
@@ -57,7 +58,6 @@
       <section class="hero" id="inicio" aria-labelledby="hero-titulo">
         <div class="hero-container">
           <div class="hero-content">
-            <p class="hero-tag">Odontologia moderna e acessível</p>
             <h1 class="hero-titulo" id="hero-titulo">
               Uma experiência dental
               <em>diferente</em>, por design.
@@ -68,33 +68,39 @@
             </p>
             <div class="hero-acoes">
               <a href="#formulario" class="btn btn-primario" id="hero-cta-agendar">
-                Agendar Agora
+                Agendar consulta
               </a>
               <a href="#servicos" class="btn btn-secundario" id="hero-cta-servicos">
-                Ver Serviços
+                Ver serviços
               </a>
             </div>
-            <div class="hero-prova-social" aria-label="Avaliação dos pacientes">
-              <div class="estrelas" aria-hidden="true">
-                &#9733;&#9733;&#9733;&#9733;&#9733;
+            <div class="hero-prova-social" aria-label="Avaliação 4,9 de 5 com mais de 800 pacientes">
+              <div class="estrelas-svg" aria-hidden="true">
+                <svg viewBox="0 0 20 20"><path d="M10 1.8l2.47 5.01 5.53.8-4 3.9.94 5.51L10 14.42l-4.94 2.6.94-5.51-4-3.9 5.53-.8L10 1.8z"/></svg>
+                <svg viewBox="0 0 20 20"><path d="M10 1.8l2.47 5.01 5.53.8-4 3.9.94 5.51L10 14.42l-4.94 2.6.94-5.51-4-3.9 5.53-.8L10 1.8z"/></svg>
+                <svg viewBox="0 0 20 20"><path d="M10 1.8l2.47 5.01 5.53.8-4 3.9.94 5.51L10 14.42l-4.94 2.6.94-5.51-4-3.9 5.53-.8L10 1.8z"/></svg>
+                <svg viewBox="0 0 20 20"><path d="M10 1.8l2.47 5.01 5.53.8-4 3.9.94 5.51L10 14.42l-4.94 2.6.94-5.51-4-3.9 5.53-.8L10 1.8z"/></svg>
+                <svg viewBox="0 0 20 20"><path d="M10 1.8l2.47 5.01 5.53.8-4 3.9.94 5.51L10 14.42l-4.94 2.6.94-5.51-4-3.9 5.53-.8L10 1.8z"/></svg>
               </div>
-              <p>
-                <strong>+800 avaliações</strong> 5 estrelas de pacientes
-                satisfeitos
-              </p>
+              <span class="prova-nota">4,9</span>
+              <span class="prova-divisor" aria-hidden="true"></span>
+              <p><strong>+800 avaliações</strong> de pacientes</p>
             </div>
           </div>
-          <div class="hero-imagem" aria-hidden="true">
+          <div class="hero-imagem">
             <div class="imagem-wrapper">
               <img src="assets/hero-bg.jpg" alt="Consultório odontológico moderno e iluminado" class="hero-img" />
-            </div>
-            <div class="badge-flutuante badge-1">
-              <span class="badge-numero">98%</span>
-              <span class="badge-texto">Satisfação</span>
-            </div>
-            <div class="badge-flutuante badge-2">
-              <span class="badge-numero">&#9660; 15min</span>
-              <span class="badge-texto">Tempo médio de espera</span>
+              <div class="hero-dock" aria-label="Indicadores de atendimento">
+                <div class="hero-dock-item">
+                  <span class="hero-dock-valor">98%</span>
+                  <span class="hero-dock-rotulo">Satisfação</span>
+                </div>
+                <span class="hero-dock-sep" aria-hidden="true"></span>
+                <div class="hero-dock-item">
+                  <span class="hero-dock-valor">&lt; 15 min</span>
+                  <span class="hero-dock-rotulo">Espera média</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -120,7 +126,7 @@
                 Check-in fácil, curta espera e ambiente acolhedor. Venha
                 conhecer a diferença de um atendimento realmente humanizado.
               </p>
-              <a href="#formulario" class="servico-link" id="link-consulta" aria-label="Agendar Primeira Consulta">
+              <a href="#formulario" class="servico-link" id="link-consulta" data-servico="primeira-consulta" aria-label="Agendar Primeira Consulta">
                 Agendar &rarr;
               </a>
             </li>
@@ -132,7 +138,7 @@
                 Remoção de tártaro, polimento e orientação de higiene bucal.
                 Sessão completa em até 60 minutos.
               </p>
-              <a href="#formulario" class="servico-link" id="link-limpeza" aria-label="Agendar Limpeza e Profilaxia">
+              <a href="#formulario" class="servico-link" id="link-limpeza" data-servico="limpeza" aria-label="Agendar Limpeza e Profilaxia">
                 Agendar &rarr;
               </a>
             </li>
@@ -143,7 +149,7 @@
                 Dor de dente não espera. Atendimento no mesmo dia para casos
                 urgentes, agendado online instantaneamente.
               </p>
-              <a href="#formulario" class="servico-link" id="link-emergencia" aria-label="Agendar Atendimento de Urgência">
+              <a href="#formulario" class="servico-link" id="link-emergencia" data-servico="emergencia" aria-label="Agendar Atendimento de Urgência">
                 Agendar &rarr;
               </a>
             </li>
@@ -154,7 +160,7 @@
                 Aparelhos fixos, móveis e alinhadores transparentes. Sorriso
                 alinhado com o tratamento ideal para seu caso.
               </p>
-              <a href="#formulario" class="servico-link" id="link-ortodontia" aria-label="Agendar Ortodontia">
+              <a href="#formulario" class="servico-link" id="link-ortodontia" data-servico="ortodontia" aria-label="Agendar Ortodontia">
                 Agendar &rarr;
               </a>
             </li>
@@ -165,7 +171,7 @@
                 Sorriso mais brilhante em uma única sessão. Resultado
                 profissional e duradouro com técnica segura.
               </p>
-              <a href="#formulario" class="servico-link" id="link-clareamento" aria-label="Agendar Clareamento Dental">
+              <a href="#formulario" class="servico-link" id="link-clareamento" data-servico="clareamento" aria-label="Agendar Clareamento Dental">
                 Agendar &rarr;
               </a>
             </li>
@@ -176,7 +182,7 @@
                 Especialistas em implantes com tecnologia 3D guiada para
                 resultados precisos e duradouros.
               </p>
-              <a href="#formulario" class="servico-link" id="link-implante" aria-label="Agendar Implantes">
+              <a href="#formulario" class="servico-link" id="link-implante" data-servico="implante" aria-label="Agendar Implantes">
                 Agendar &rarr;
               </a>
             </li>
@@ -185,65 +191,119 @@
       </section>
 
       <section class="depoimentos" id="depoimentos" aria-labelledby="depoimentos-titulo">
-        <div class="section-container">
+        <div class="section-container depoimentos-container">
           <div class="section-cabecalho">
             <p class="section-tag">O que dizem nossos pacientes</p>
             <h2 class="section-titulo" id="depoimentos-titulo">
               Sorrisos que falam por si
             </h2>
           </div>
-          <div class="depoimentos-grid" role="list">
-            <article class="depoimento-card" role="listitem">
-              <div class="depoimento-estrelas" aria-label="5 estrelas" aria-hidden="true">
-                &#9733;&#9733;&#9733;&#9733;&#9733;
+          <div class="depoimentos-marquee" id="depoimentos-marquee" aria-label="Depoimentos de pacientes">
+            <div class="depoimentos-track" id="depoimentos-track">
+              <div class="depoimentos-grupo" role="list">
+                <article class="depoimento-card" role="listitem">
+                  <div class="depoimento-estrelas" aria-label="5 estrelas" aria-hidden="true">
+                    &#9733;&#9733;&#9733;&#9733;&#9733;
+                  </div>
+                  <blockquote class="depoimento-texto">
+                    "Marquei pelo site e fui atendida no horário. A equipe é
+                    incrível, muito atenciosa. Nunca tive tanto cuidado em uma
+                    consulta odontológica."
+                  </blockquote>
+                  <footer class="depoimento-autor">
+                    <div class="autor-avatar" aria-hidden="true">C</div>
+                    <div>
+                      <p class="autor-nome">Camila P.</p>
+                      <p class="autor-servico">Limpeza e Profilaxia</p>
+                    </div>
+                  </footer>
+                </article>
+                <article class="depoimento-card" role="listitem">
+                  <div class="depoimento-estrelas" aria-label="5 estrelas" aria-hidden="true">
+                    &#9733;&#9733;&#9733;&#9733;&#9733;
+                  </div>
+                  <blockquote class="depoimento-texto">
+                    "A equipe administrativa é sempre gentil. Me sinto ouvido e
+                    compreendido. O serviço é de alta qualidade e o atendimento é
+                    muito humano."
+                  </blockquote>
+                  <footer class="depoimento-autor">
+                    <div class="autor-avatar" aria-hidden="true">D</div>
+                    <div>
+                      <p class="autor-nome">Diego T.</p>
+                      <p class="autor-servico">Consulta de Avaliação</p>
+                    </div>
+                  </footer>
+                </article>
+                <article class="depoimento-card" role="listitem">
+                  <div class="depoimento-estrelas" aria-label="5 estrelas" aria-hidden="true">
+                    &#9733;&#9733;&#9733;&#9733;&#9733;
+                  </div>
+                  <blockquote class="depoimento-texto">
+                    "A higienista explicou cada etapa da limpeza. O dentista se
+                    preocupou com como eu estava. É uma clínica centrada no
+                    paciente e você não vai se arrepender."
+                  </blockquote>
+                  <footer class="depoimento-autor">
+                    <div class="autor-avatar" aria-hidden="true">J</div>
+                    <div>
+                      <p class="autor-nome">Juliana F.</p>
+                      <p class="autor-servico">Limpeza e Profilaxia</p>
+                    </div>
+                  </footer>
+                </article>
+                <article class="depoimento-card" role="listitem">
+                  <div class="depoimento-estrelas" aria-label="5 estrelas" aria-hidden="true">
+                    &#9733;&#9733;&#9733;&#9733;&#9733;
+                  </div>
+                  <blockquote class="depoimento-texto">
+                    "Fiz o clareamento em consultório e o resultado superou o
+                    esperado sem nenhuma sensibilidade. Ambiente silencioso,
+                    limpo e pontual."
+                  </blockquote>
+                  <footer class="depoimento-autor">
+                    <div class="autor-avatar" aria-hidden="true">R</div>
+                    <div>
+                      <p class="autor-nome">Renata S.</p>
+                      <p class="autor-servico">Clareamento Dental</p>
+                    </div>
+                  </footer>
+                </article>
+                <article class="depoimento-card" role="listitem">
+                  <div class="depoimento-estrelas" aria-label="5 estrelas" aria-hidden="true">
+                    &#9733;&#9733;&#9733;&#9733;&#9733;
+                  </div>
+                  <blockquote class="depoimento-texto">
+                    "Acompanho minha ortodontia há mais de um ano aqui. Cada
+                    retorno é organizado, rápido e com explicação clara da
+                    evolução."
+                  </blockquote>
+                  <footer class="depoimento-autor">
+                    <div class="autor-avatar" aria-hidden="true">L</div>
+                    <div>
+                      <p class="autor-nome">Lucas M.</p>
+                      <p class="autor-servico">Ortodontia</p>
+                    </div>
+                  </footer>
+                </article>
+                <article class="depoimento-card" role="listitem">
+                  <div class="depoimento-estrelas" aria-label="5 estrelas" aria-hidden="true">
+                    &#9733;&#9733;&#9733;&#9733;&#9733;
+                  </div>
+                  <blockquote class="depoimento-texto">
+                    "Tive receio antes do implante, mas o planejamento 3D e a
+                    calma do dentista tornaram tudo tranquilo do início ao fim."
+                  </blockquote>
+                  <footer class="depoimento-autor">
+                    <div class="autor-avatar" aria-hidden="true">H</div>
+                    <div>
+                      <p class="autor-nome">Henrique B.</p>
+                      <p class="autor-servico">Implantes</p>
+                    </div>
+                  </footer>
+                </article>
               </div>
-              <blockquote class="depoimento-texto">
-                "Marquei pelo site e fui atendida no horário. A equipe é
-                incrível, muito atenciosa. Nunca tive tanto cuidado em uma
-                consulta odontológica."
-              </blockquote>
-              <footer class="depoimento-autor">
-                <div class="autor-avatar" aria-hidden="true">C</div>
-                <div>
-                  <p class="autor-nome">Camila P.</p>
-                  <p class="autor-servico">Limpeza e Profilaxia</p>
-                </div>
-              </footer>
-            </article>
-            <article class="depoimento-card" role="listitem">
-              <div class="depoimento-estrelas" aria-label="5 estrelas" aria-hidden="true">
-                &#9733;&#9733;&#9733;&#9733;&#9733;
-              </div>
-              <blockquote class="depoimento-texto">
-                "A equipe administrativa é sempre gentil. Me sinto ouvido e
-                compreendido. O serviço é de alta qualidade e o atendimento é
-                muito humano."
-              </blockquote>
-              <footer class="depoimento-autor">
-                <div class="autor-avatar" aria-hidden="true">D</div>
-                <div>
-                  <p class="autor-nome">Diego T.</p>
-                  <p class="autor-servico">Consulta de Avaliação</p>
-                </div>
-              </footer>
-            </article>
-            <article class="depoimento-card" role="listitem">
-              <div class="depoimento-estrelas" aria-label="5 estrelas" aria-hidden="true">
-                &#9733;&#9733;&#9733;&#9733;&#9733;
-              </div>
-              <blockquote class="depoimento-texto">
-                "A higienista explicou cada etapa da limpeza. O dentista se
-                preocupou com como eu estava. É uma clínica centrada no
-                paciente e você não vai se arrepender."
-              </blockquote>
-              <footer class="depoimento-autor">
-                <div class="autor-avatar" aria-hidden="true">J</div>
-                <div>
-                  <p class="autor-nome">Juliana F.</p>
-                  <p class="autor-servico">Limpeza e Profilaxia</p>
-                </div>
-              </footer>
-            </article>
+            </div>
           </div>
         </div>
       </section>
@@ -269,22 +329,100 @@
                 <li class="convenio-item">&#10003; OdontoPrev</li>
               </ul>
             </div>
-            <div class="convenios-numeros" aria-label="Estatísticas da clínica">
+            <div class="convenios-numeros" id="convenios-numeros" aria-label="Estatísticas da clínica">
               <div class="numero-card">
-                <span class="numero-valor">+12</span>
-                <span class="numero-label">anos de experiência</span>
+                <div class="numero-topo">
+                  <span class="numero-valor" data-count-to="12" data-prefix="+">+12</span>
+                  <span class="numero-label">anos de experiência</span>
+                </div>
+                <div class="metric-viz" aria-hidden="true">
+                  <div class="metric-area-wrap">
+                    <svg class="metric-area-svg" viewBox="0 0 240 54" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="grad-exp" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stop-color="#1a6b4a" stop-opacity="0.2" />
+                          <stop offset="100%" stop-color="#1a6b4a" stop-opacity="0" />
+                        </linearGradient>
+                      </defs>
+                      <line class="metric-gridline" x1="0" y1="27" x2="240" y2="27" vector-effect="non-scaling-stroke" />
+                      <path class="metric-area-fill" d="M 0 46 C 42 44, 74 37, 112 29 C 152 21, 192 15, 240 8 L 240 54 L 0 54 Z" />
+                      <path class="metric-spark-line" d="M 0 46 C 42 44, 74 37, 112 29 C 152 21, 192 15, 240 8" vector-effect="non-scaling-stroke" />
+                    </svg>
+                    <span class="metric-spark-dot"></span>
+                  </div>
+                  <div class="metric-eixo">
+                    <span>2014</span>
+                    <span>2026</span>
+                  </div>
+                </div>
               </div>
+
               <div class="numero-card">
-                <span class="numero-valor">+5k</span>
-                <span class="numero-label">pacientes atendidos</span>
+                <div class="numero-topo">
+                  <span class="numero-valor" data-count-to="5" data-prefix="+" data-suffix="k" data-decimals="1">+5k</span>
+                  <span class="numero-label">pacientes atendidos</span>
+                </div>
+                <div class="metric-viz" aria-hidden="true">
+                  <div class="metric-bars">
+                    <span style="--h: 22%; --o: 0.16; --i: 0"></span>
+                    <span style="--h: 27%; --o: 0.22; --i: 1"></span>
+                    <span style="--h: 33%; --o: 0.28; --i: 2"></span>
+                    <span style="--h: 38%; --o: 0.35; --i: 3"></span>
+                    <span style="--h: 46%; --o: 0.44; --i: 4"></span>
+                    <span style="--h: 54%; --o: 0.54; --i: 5"></span>
+                    <span style="--h: 63%; --o: 0.66; --i: 6"></span>
+                    <span style="--h: 74%; --o: 0.78; --i: 7"></span>
+                    <span style="--h: 86%; --o: 0.88; --i: 8"></span>
+                    <span style="--h: 100%; --o: 1; --i: 9"></span>
+                  </div>
+                  <div class="metric-eixo">
+                    <span>2021</span>
+                    <span>2026</span>
+                  </div>
+                </div>
               </div>
+
               <div class="numero-card">
-                <span class="numero-valor">98%</span>
-                <span class="numero-label">índice de satisfação</span>
+                <div class="numero-topo">
+                  <span class="numero-valor" data-count-to="98" data-suffix="%">98%</span>
+                  <span class="numero-label">índice de satisfação</span>
+                </div>
+                <div class="metric-satisfacao" aria-hidden="true">
+                  <div class="metric-ring-box">
+                    <svg class="metric-ring" viewBox="0 0 60 60">
+                      <circle class="metric-ring-track" cx="30" cy="30" r="24" />
+                      <circle class="metric-ring-fill" cx="30" cy="30" r="24" pathLength="100" />
+                    </svg>
+                    <span class="metric-ring-centro">4,9</span>
+                  </div>
+                  <div class="metric-dist">
+                    <div class="metric-dist-row">
+                      <span class="metric-dist-estrela">5&#9733;</span>
+                      <div class="metric-dist-track"><i style="--w: 90%; --i: 0"></i></div>
+                      <span class="metric-dist-pct">90%</span>
+                    </div>
+                    <div class="metric-dist-row">
+                      <span class="metric-dist-estrela">4&#9733;</span>
+                      <div class="metric-dist-track"><i style="--w: 8%; --i: 1"></i></div>
+                      <span class="metric-dist-pct">8%</span>
+                    </div>
+                  </div>
+                </div>
               </div>
+
               <div class="numero-card">
-                <span class="numero-valor">8+</span>
-                <span class="numero-label">especialidades</span>
+                <div class="numero-topo">
+                  <span class="numero-valor" data-count-to="8" data-suffix="+">8+</span>
+                  <span class="numero-label">especialidades</span>
+                </div>
+                <div class="metric-tags" aria-hidden="true">
+                  <span style="--i: 0">Clínica Geral</span>
+                  <span style="--i: 1">Ortodontia</span>
+                  <span style="--i: 2">Implantes</span>
+                  <span style="--i: 3">Estética</span>
+                  <span style="--i: 4">Endodontia</span>
+                  <span class="destaque" style="--i: 5">+3 áreas</span>
+                </div>
               </div>
             </div>
           </div>
@@ -431,7 +569,6 @@
       <div class="footer-container">
         <div class="footer-marca">
           <a href="#inicio" class="nav-logo" aria-label="SmileClinic">
-            <span class="logo-icon" aria-hidden="true">&#9679;</span>
             SmileClinic
           </a>
           <p class="footer-descricao">

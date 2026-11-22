@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prontuário eletrônico - SmileClinic</title>
+    <script src="theme.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="painel.css" />
+  </head>
+  <body data-pagina="prontuario">
+    <div class="app-shell">
+      <div id="sidebar-slot"></div>
+
+      <main class="conteudo">
+        <header class="page-header">
+          <div class="page-header-titulo">
+            <h1>Prontuário eletrônico</h1>
+            <p id="prontuario-breadcrumb" class="breadcrumb"></p>
+          </div>
+          <div class="page-acoes">
+            <select
+              id="seletor-paciente"
+              class="select"
+              aria-label="Selecionar paciente"
+              style="min-width: 240px"
+            ></select>
+            <button type="button" id="btn-imprimir" class="btn btn-secundario">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <polyline points="6 9 6 2 18 2 18 9" />
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                <rect x="6" y="14" width="12" height="8" />
+              </svg>
+              <span>Imprimir</span>
+            </button>
+            <button type="button" id="btn-salvar-atendimento" class="btn btn-primario">
+              Salvar atendimento
+            </button>
+          </div>
+        </header>
+
+        <section class="card paciente-banner" aria-label="Identificação do paciente">
+          <div class="paciente-banner-dados">
+            <h2 id="banner-nome">—</h2>
+            <p id="banner-sub"></p>
+          </div>
+          <div class="paciente-banner-status">
+            <span id="banner-status" class="status-pill st-agendada">—</span>
+            <span id="banner-profissional"></span>
+          </div>
+        </section>
+
+        <div id="tabs-prontuario" class="tabs-bar" role="tablist" aria-label="Seções do prontuário">
+          <button type="button" class="tab-btn" role="tab" data-aba="evolucao" aria-selected="true">
+            Evolução clínica
+          </button>
+          <button type="button" class="tab-btn" role="tab" data-aba="anamnese" aria-selected="false">
+            Anamnese
+          </button>
+          <button type="button" class="tab-btn" role="tab" data-aba="plano" aria-selected="false">
+            Plano de tratamento
+          </button>
+          <button type="button" class="tab-btn" role="tab" data-aba="documentos" aria-selected="false">
+            Documentos
+          </button>
+          <div class="tabs-indicator" aria-hidden="true"></div>
+        </div>
+
+        <!-- Aba 1: Evolução clínica -->
+        <section id="painel-evolucao" class="tab-painel grid-prontuario" role="tabpanel">
+          <div class="coluna-stack">
+            <div class="card">
+              <div class="card-topo">
+                <h2>Ficha de evolução clínica</h2>
+                <button type="button" id="btn-nova-evolucao" class="btn btn-secundario btn-sm no-print">
+                  + Nova ficha
+                </button>
+              </div>
+              <form id="form-evolucao" class="form-grid">
+                <div class="campo">
+                  <label for="ev-queixa">Queixa principal</label>
+                  <textarea id="ev-queixa" name="queixa_principal" class="textarea" required></textarea>
+                </div>
+                <div class="campo">
+                  <label for="ev-exame">Exame clínico</label>
+                  <textarea id="ev-exame" name="exame_clinico" class="textarea" required></textarea>
+                </div>
+                <div class="campo">
+                  <label for="ev-proc">Procedimento realizado</label>
+                  <textarea id="ev-proc" name="procedimento_realizado" class="textarea" required></textarea>
+                </div>
+                <div class="campo">
+                  <label for="ev-presc">Prescrição e orientações</label>
+                  <textarea id="ev-presc" name="prescricao_orientacoes" class="textarea"></textarea>
+                </div>
+                <div class="form-rodape">
+                  <span id="evolucao-rodape-meta" class="td-secundario tabular"></span>
+                  <div style="display: flex; align-items: center; gap: 8px">
+                    <label for="ev-status" class="sr-only">Status do registro</label>
+                    <select id="ev-status" name="status" class="select">
+                      <option value="rascunho">Rascunho não assinado</option>
+                      <option value="assinado">Assinado</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <div class="card">
+              <div class="card-topo">
+                <h2>Histórico de atendimentos</h2>
+              </div>
+              <ul id="lista-evolucoes" class="historico-lista"></ul>
+            </div>
+          </div>
+
+          <aside class="card" aria-labelledby="titulo-alertas">
+            <div class="card-topo">
+              <h2 id="titulo-alertas">Alertas clínicos</h2>
+            </div>
+            <div class="alerta-item">
+              <div id="alerta-anamnese"></div>
+              <small id="alerta-anamnese-data"></small>
+            </div>
+            <div class="alerta-item">
+              <strong>Último atendimento</strong>
+              <p id="alerta-ultimo-atendimento"></p>
+            </div>
+          </aside>
+        </section>
+
+        <!-- Aba 2: Anamnese -->
+        <section id="painel-anamnese" class="tab-painel oculto" role="tabpanel">
+          <div class="card">
+            <div class="card-topo">
+              <h2>Anamnese do paciente</h2>
+            </div>
+            <form id="form-anamnese" class="form-grid">
+              <div class="campo">
+                <label for="txt-anamnese">Histórico de saúde, alergias e medicamentos</label>
+                <textarea id="txt-anamnese" name="anamnese" class="textarea" style="min-height: 180px"></textarea>
+              </div>
+              <div class="form-rodape">
+                <span></span>
+                <button type="submit" class="btn btn-primario">Salvar anamnese</button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- Aba 3: Plano de tratamento + Odontograma FDI -->
+        <section id="painel-plano" class="tab-painel oculto coluna-stack" role="tabpanel">
+          <div class="card">
+            <div class="card-topo">
+              <h2>Odontograma (FDI)</h2>
+              <span id="dente-selecionado-rotulo" class="td-secundario"></span>
+            </div>
+            <div class="odontograma-wrap">
+              <span class="arcada-titulo">Arcada superior</span>
+              <div id="arcada-superior" class="arcada-grid"></div>
+              <div id="arcada-inferior" class="arcada-grid"></div>
+              <span class="arcada-titulo">Arcada inferior</span>
+            </div>
+            <form id="form-odonto" class="form-grid no-print" style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border)">
+              <div class="form-row">
+                <div class="campo">
+                  <label for="od-face">Face do dente</label>
+                  <select id="od-face" name="face" class="select" required></select>
+                </div>
+                <div class="campo">
+                  <label for="od-desc">Procedimento no dente</label>
+                  <input id="od-desc" name="descricao" class="input" required minlength="3" />
+                </div>
+              </div>
+              <div class="form-rodape">
+                <span></span>
+                <button type="submit" class="btn btn-primario">Registrar no odontograma</button>
+              </div>
+            </form>
+            <div class="tabela-wrap" style="margin-top: 16px">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Dente</th>
+                    <th>Face</th>
+                    <th>Descrição</th>
+                    <th>Profissional</th>
+                    <th>Data</th>
+                    <th class="td-acoes">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="lista-odonto"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-topo">
+              <h2>Plano de tratamento</h2>
+              <strong id="total-plano" class="tabular">R$ 0,00</strong>
+            </div>
+            <form id="form-plano" class="form-grid no-print" style="margin-bottom: 20px">
+              <div class="form-row">
+                <div class="campo">
+                  <label for="pl-proc">Procedimento planejado</label>
+                  <input id="pl-proc" name="procedimento" class="input" required minlength="3" />
+                </div>
+                <div class="form-row">
+                  <div class="campo">
+                    <label for="pl-dente">Dente (FDI)</label>
+                    <input id="pl-dente" name="dente" type="number" class="input tabular" placeholder="11–48" />
+                  </div>
+                  <div class="campo">
+                    <label for="pl-valor">Valor (R$)</label>
+                    <input id="pl-valor" name="valor" type="number" step="0.01" min="0" class="input tabular" required />
+                  </div>
+                </div>
+              </div>
+              <div class="form-rodape">
+                <span></span>
+                <button type="submit" class="btn btn-secundario">+ Adicionar ao plano</button>
+              </div>
+            </form>
+            <div class="tabela-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Dente</th>
+                    <th>Procedimento</th>
+                    <th>Valor</th>
+                    <th>Status</th>
+                    <th class="td-acoes">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="lista-plano"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Aba 4: Documentos -->
+        <section id="painel-documentos" class="tab-painel oculto coluna-stack" role="tabpanel">
+          <div class="card no-print">
+            <div class="card-topo">
+              <h2>Emitir documento</h2>
+            </div>
+            <form id="form-documento" class="form-grid">
+              <div class="form-row">
+                <div class="campo">
+                  <label for="doc-tipo">Tipo</label>
+                  <select id="doc-tipo" name="tipo" class="select" required>
+                    <option value="receita">Receita</option>
+                    <option value="atestado">Atestado</option>
+                    <option value="orcamento">Orçamento</option>
+                    <option value="encaminhamento">Encaminhamento</option>
+                    <option value="termo">Termo de consentimento</option>
+                  </select>
+                </div>
+                <div class="campo">
+                  <label for="doc-titulo">Título</label>
+                  <input id="doc-titulo" name="titulo" class="input" required minlength="3" />
+                </div>
+              </div>
+              <div class="campo">
+                <label for="doc-conteudo">Conteúdo</label>
+                <textarea id="doc-conteudo" name="conteudo" class="textarea" required minlength="5" style="min-height: 120px"></textarea>
+              </div>
+              <div class="form-rodape">
+                <span></span>
+                <button type="submit" class="btn btn-primario">Salvar documento</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="card">
+            <div class="card-topo">
+              <h2>Documentos emitidos</h2>
+            </div>
+            <div id="lista-documentos" class="coluna-stack"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="core.js"></script>
+    <script src="painel.js"></script>
+  </body>
+</html>

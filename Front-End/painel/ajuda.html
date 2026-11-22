@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ajuda e suporte - SmileClinic</title>
+    <script src="theme.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="painel.css" />
+  </head>
+  <body data-pagina="ajuda">
+    <div class="app-shell">
+      <div id="sidebar-slot"></div>
+
+      <main class="conteudo">
+        <header class="page-header">
+          <div class="page-header-titulo">
+            <h1>Ajuda e suporte</h1>
+          </div>
+        </header>
+
+        <section class="grid-2">
+          <div class="card">
+            <div class="card-topo">
+              <h2>Fluxo da recepção</h2>
+            </div>
+            <div class="alerta-item">
+              <strong>Agenda e chegada</strong>
+              <p>Altere o status da consulta para Confirmado, Na recepção, Em atendimento ou Concluído diretamente na linha do paciente.</p>
+            </div>
+            <div class="alerta-item">
+              <strong>Pré-agendamentos do site</strong>
+              <p>Os pedidos enviados pela landing page aparecem no botão Pré-agendamentos no topo da Agenda.</p>
+            </div>
+            <div class="alerta-item">
+              <strong>Faturamento rápido</strong>
+              <p>Procedimentos cadastrados no Plano de tratamento podem ser enviados ao Financeiro com o botão Lançar.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-topo">
+              <h2>Referência técnica</h2>
+            </div>
+            <div class="alerta-item">
+              <strong>Servidor da API</strong>
+              <p class="tabular">http://127.0.0.1:3000</p>
+              <small>Documentação interativa em /docs</small>
+            </div>
+            <div class="alerta-item">
+              <strong>Notação odontológica</strong>
+              <p>Odontograma no padrão FDI (quadrantes 11–18, 21–28, 31–38 e 41–48).</p>
+            </div>
+            <div class="alerta-item">
+              <strong>Exportação e impressão</strong>
+              <p>Relatórios gerenciais são exportados em CSV (compatível com Excel) e prontuários podem ser impressos pela ação Imprimir.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="core.js"></script>
+    <script src="painel.js"></script>
+  </body>
+</html>

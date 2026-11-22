@@ -1,39 +1,39 @@
-# SmileClinic - API Backend
+# SmileClinic — API Back-end
 
-Este é o back-end desenvolvido para a Prova de Conceito (PoC) do sistema de pré-agendamento da SmileClinic. Ele atua como o ponto central para receber, validar e armazenar os dados enviados pelo formulário da Landing Page.
+API REST do Sistema de Gestão Odontológica. Atende os cadastros e fluxos do modelo de dados: dentistas, pacientes, consultas (agenda) e prontuário (odontograma), além dos pedidos da landing page.
 
-## O que foi construído?
+Descrição técnica completa: [`../docs/tecnologias.md`](../docs/tecnologias.md).
 
-Para garantir um sistema leve, rápido e aderente às melhores práticas, construímos a API utilizando:
+## Organização
 
-- **FastAPI**: Para gerenciar o roteamento REST de forma assíncrona.
-- **Pydantic**: Para aplicar validação rigorosa dos dados de entrada (como checagem de e-mail, limites de caracteres e verificação exata do serviço solicitado).
-- **SQLAlchemy + SQLite**: Para a persistência dos dados de forma estruturada. Usamos um banco de dados local (`poc.db`) ideal para esta PoC.
-- **Testes (Pytest + TDD)**: Toda a regra de validação e roteamento foi construída usando testes automatizados para garantir confiabilidade.
+| Arquivo | Papel |
+|---|---|
+| `main.py` | Cria a aplicação, configura CORS e o formato de erro, registra os controllers |
+| `controllers/` | Um controller por recurso, com as rotas e as regras de negócio |
+| `schemas.py` | Validação dos dados de entrada e saída (Pydantic) |
+| `models.py` | Classes das tabelas (SQLAlchemy) |
+| `enums.py` | Valores permitidos: status da consulta, face do dente, serviço |
+| `database.py` | Conexão assíncrona. O banco vem da variável `DATABASE_URL` (padrão: `poc.db`) |
+| `security.py` | Hash de senha (PBKDF2-SHA256) |
+| `seed.py` | Dados de exemplo para demonstração |
 
-## Principais Funcionalidades
+## Como executar
 
-1. **Rota `POST /solicitacoes`:**
-   Recebe o payload do formulário. 
-   - **Fluxo de Sucesso:** Valida a requisição, gera um ID único, registra o horário de criação, define o status inicial como `pendente`, salva no banco de dados e retorna o status `201 Created`.
-   - **Fluxo de Falha:** Erros de preenchimento são interceptados automaticamente e envelopados na chave `{"message": "..."}` com status HTTP `422`. O Front-end lê exatamente essa chave para exibir avisos na tela.
+```bash
+cd Back-End
+uv run python seed.py
+uv run uvicorn main:app --port 3000 --reload
+```
 
-2. **CORS:**
-   O middleware foi configurado para permitir que o Front-end (rodando no navegador a partir de arquivos HTML ou Live Server) possa se comunicar com a API sem ser bloqueado pela segurança do navegador.
+Documentação interativa: http://127.0.0.1:3000/docs
 
-## Como Executar
+> Se você já tinha um `poc.db` da versão anterior, as tabelas novas são criadas sozinhas ao iniciar a API. Para começar do zero, apague o `poc.db`.
 
-O projeto utiliza o gerenciador **uv** para gerir dependências de forma otimizada. Não é necessário instalar bibliotecas manualmente com `pip`.
+## Testes
 
-1. Navegue até a pasta do back-end:
-   ```bash
-   cd Back-End
-   ```
+```bash
+uv run pytest
+uv run ruff check .
+```
 
-2. Inicie o servidor fixando a porta `3000` (porta mapeada no Front-End):
-   ```bash
-   uv run uvicorn main:app --port 3000
-   ```
-
-Com isso, a API estará rodando em `http://127.0.0.1:3000`. 
-*A documentação interativa gerada automaticamente fica disponível em `http://127.0.0.1:3000/docs`.*
+Os testes usam um banco em memória e não mexem no `poc.db`.
