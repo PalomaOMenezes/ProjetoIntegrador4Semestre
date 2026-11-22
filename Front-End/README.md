@@ -1,4 +1,4 @@
-# OdontoAgenda — Front-end PoC
+# SmileClinic — Front-end
 
 Prova de Conceito do front-end para o Sistema de Gestão Odontológica (Projeto Integrador SENAC 2026 — 4º semestre).
 
@@ -18,10 +18,24 @@ Entrega uma landing page com formulário de pré-agendamento, com acessibilidade
 Front-End/
 ├── assets/
 │   └── hero-bg.jpg
-├── index.html
+├── index.html          # landing page (pré-agendamento)
 ├── script.js
-└── style.css
+├── style.css
+└── painel/             # telas internas da clínica
+    ├── login.html      # acesso dos dentistas
+    ├── agenda.html     # consultas do dia, novo agendamento, troca de status
+    ├── pacientes.html  # cadastro, busca e anamnese
+    ├── prontuario.html # odontograma (notação FDI) + histórico
+    ├── dentistas.html  # cadastro da equipe
+    ├── painel.css      # estilos compartilhados (mesmas cores da landing)
+    └── painel.js       # chamadas à API e lógica das telas
 ```
+
+## Painel da clínica
+
+- Responsivo para **computador** (menu lateral) e **tablet** (menu no topo, colunas empilhadas).
+- Usa as mesmas cores e fontes da landing page.
+- Precisa da API rodando na porta 3000. Login de demonstração: `ana@smileclinic.com` / `smile2026` (rode `uv run python seed.py` no Back-End).
 
 ## Como executar
 

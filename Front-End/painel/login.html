@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Entrar - SmileClinic</title>
+    <script src="theme.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="painel.css" />
+  </head>
+  <body data-pagina="login" class="tela-login">
+    <main class="login-card">
+      <div class="login-topo">
+        <a href="../index.html" class="login-marca">SmileClinic</a>
+        <button
+          type="button"
+          class="icon-btn"
+          data-toggle-tema
+          aria-label="Alternar tema"
+        ></button>
+      </div>
+
+      <div class="login-titulo">
+        <h1>Acesso da clínica</h1>
+      </div>
+
+      <form id="form-login" class="form-grid">
+        <div class="campo">
+          <label for="email">E-mail</label>
+          <input
+            class="input"
+            type="email"
+            id="email"
+            name="email"
+            placeholder="nome@smileclinic.com"
+            required
+            autocomplete="username"
+          />
+        </div>
+        <div class="campo">
+          <label for="senha">Senha</label>
+          <input
+            class="input"
+            type="password"
+            id="senha"
+            name="senha"
+            required
+            autocomplete="current-password"
+          />
+        </div>
+        <p id="login-erro" class="erro-inline" role="alert"></p>
+        <button type="submit" class="btn btn-primario" style="width: 100%">
+          Entrar
+        </button>
+      </form>
+
+      <div class="login-rodape">
+        <span>Acesso de demonstração: <strong>ana@smileclinic.com</strong></span>
+        <span>Senha: <strong>smile2026</strong></span>
+      </div>
+    </main>
+    <script src="core.js"></script>
+    <script src="painel.js"></script>
+  </body>
+</html>

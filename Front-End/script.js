@@ -5,7 +5,13 @@ const formulario = document.getElementById('form-agendamento');
 const btnSubmit = document.getElementById('btn-submit');
 const formStatus = document.getElementById('form-status');
 
-const API_URL = 'http://127.0.0.1:3000/solicitacoes';
+const IS_LOCAL =
+  location.protocol === 'file:' ||
+  location.hostname === 'localhost' ||
+  location.hostname === '127.0.0.1';
+const API_URL = IS_LOCAL
+  ? 'http://127.0.0.1:3000/solicitacoes'
+  : '/api/solicitacoes';
 
 const MENSAGENS_ERRO = {
   nome: 'Informe seu nome completo.',

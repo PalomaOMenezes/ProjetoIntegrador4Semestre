@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agenda - SmileClinic</title>
+    <script src="theme.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="painel.css" />
+  </head>
+  <body data-pagina="agenda">
+    <div class="app-shell">
+      <div id="sidebar-slot"></div>
+
+      <main class="conteudo">
+        <header class="page-header">
+          <div class="page-header-titulo">
+            <h1>Agenda da recepção</h1>
+          </div>
+          <div class="page-acoes">
+            <button type="button" id="btn-solicitacoes" class="btn btn-secundario">
+              <span>Pré-agendamentos</span>
+              <span id="badge-solicitacoes" class="nav-badge oculto">0</span>
+            </button>
+            <button type="button" id="btn-novo-agendamento" class="btn btn-primario">
+              + Novo agendamento
+            </button>
+          </div>
+        </header>
+
+        <section class="barra-filtros" aria-label="Filtros da agenda">
+          <div class="controle-data">
+            <button
+              type="button"
+              id="btn-dia-anterior"
+              class="icon-btn"
+              aria-label="Dia anterior"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+            <input
+              type="date"
+              id="filtro-data"
+              class="input tabular"
+              aria-label="Data da agenda"
+            />
+            <button
+              type="button"
+              id="btn-dia-seguinte"
+              class="icon-btn"
+              aria-label="Próximo dia"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+            <button type="button" id="btn-hoje" class="btn btn-secundario btn-sm">
+              Hoje
+            </button>
+          </div>
+
+          <select
+            id="filtro-dentista"
+            class="select"
+            aria-label="Filtrar por profissional"
+          ></select>
+
+          <select
+            id="filtro-status"
+            class="select"
+            aria-label="Filtrar por status"
+          ></select>
+
+          <div class="campo-busca">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input
+              type="search"
+              id="filtro-busca"
+              class="input"
+              placeholder="Buscar paciente por nome ou CPF"
+              aria-label="Buscar paciente por nome ou CPF"
+            />
+          </div>
+        </section>
+
+        <section class="kpi-grid" aria-label="Resumo do dia">
+          <button type="button" class="kpi-card" data-kpi-status="">
+            <span id="kpi-total" class="kpi-valor">0</span>
+            <span class="kpi-rotulo">Agendamentos do dia</span>
+          </button>
+          <button type="button" class="kpi-card" data-kpi-status="confirmada">
+            <span id="kpi-confirmados" class="kpi-valor">0</span>
+            <span class="kpi-rotulo">Confirmados</span>
+          </button>
+          <button type="button" class="kpi-card" data-kpi-status="na_recepcao">
+            <span id="kpi-recepcao" class="kpi-valor">0</span>
+            <span class="kpi-rotulo">Na recepção</span>
+          </button>
+          <button type="button" class="kpi-card" data-kpi-status="em_atendimento">
+            <span id="kpi-atendimento" class="kpi-valor">0</span>
+            <span class="kpi-rotulo">Em atendimento</span>
+          </button>
+        </section>
+
+        <section class="card" aria-labelledby="titulo-agendados">
+          <div class="card-topo">
+            <div>
+              <h2 id="titulo-agendados">Pacientes agendados</h2>
+              <p id="agenda-data-extenso" class="card-meta"></p>
+            </div>
+            <div id="seg-visao" class="segmented" role="tablist" aria-label="Modo de visualização">
+              <div class="segmented-thumb" aria-hidden="true"></div>
+              <button type="button" role="tab" data-visao="lista" aria-selected="true">
+                Lista
+              </button>
+              <button type="button" role="tab" data-visao="dia" aria-selected="false">
+                Dia
+              </button>
+              <button type="button" role="tab" data-visao="semana" aria-selected="false">
+                Semana
+              </button>
+            </div>
+          </div>
+
+          <div id="visao-lista">
+            <div class="tabela-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Horário</th>
+                    <th>Paciente</th>
+                    <th>Procedimento</th>
+                    <th>Profissional</th>
+                    <th>Status</th>
+                    <th class="td-acoes">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="lista-consultas"></tbody>
+              </table>
+            </div>
+            <div id="paginacao-agenda" class="paginacao"></div>
+          </div>
+
+          <div id="visao-dia" class="oculto"></div>
+          <div id="visao-semana" class="oculto"></div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Modal: Novo Agendamento -->
+    <div id="modal-consulta" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-consulta">
+      <div class="modal-sheet">
+        <div class="modal-topo">
+          <h2 id="titulo-modal-consulta">Novo agendamento</h2>
+          <button type="button" class="icon-btn" data-fechar-modal aria-label="Fechar">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <form id="form-consulta" class="form-grid">
+          <div class="campo">
+            <label for="c-paciente">Paciente</label>
+            <select id="c-paciente" name="paciente_id" class="select" required></select>
+          </div>
+          <div class="campo">
+            <label for="c-dentista">Profissional</label>
+            <select id="c-dentista" name="dentista_id" class="select" required></select>
+          </div>
+          <div class="form-row">
+            <div class="campo">
+              <label for="c-data">Data</label>
+              <input id="c-data" name="data" type="date" class="input tabular" required />
+            </div>
+            <div class="campo">
+              <label for="c-hora">Horário</label>
+              <input id="c-hora" name="hora" type="time" class="input tabular" step="900" required />
+            </div>
+          </div>
+          <div class="campo">
+            <label for="c-proc">Procedimento</label>
+            <input
+              id="c-proc"
+              name="procedimento"
+              class="input"
+              required
+              minlength="2"
+              placeholder="Ex.: Avaliação inicial, Restauração · dente 26"
+            />
+          </div>
+          <div class="form-row">
+            <div class="campo">
+              <label for="c-valor">Valor estimado (R$)</label>
+              <input
+                id="c-valor"
+                name="valor_estimado"
+                type="number"
+                step="0.01"
+                min="0"
+                class="input tabular"
+                placeholder="0,00"
+              />
+            </div>
+            <div class="campo">
+              <label for="c-status">Status inicial</label>
+              <select id="c-status" name="status" class="select"></select>
+            </div>
+          </div>
+          <p id="erro-consulta" class="erro-inline" role="alert"></p>
+          <div class="form-rodape">
+            <button type="button" class="btn btn-secundario" data-fechar-modal>Cancelar</button>
+            <button type="submit" class="btn btn-primario">Salvar agendamento</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: Pré-agendamentos (Landing Page) -->
+    <div id="modal-solicitacoes" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-sol">
+      <div class="modal-sheet modal-largo">
+        <div class="modal-topo">
+          <h2 id="titulo-modal-sol">Pré-agendamentos do site</h2>
+          <button type="button" class="icon-btn" data-fechar-modal aria-label="Fechar">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <div class="tabela-wrap" style="margin: 0 -24px">
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Serviço</th>
+                <th>Mensagem</th>
+                <th>Status</th>
+                <th class="td-acoes">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="lista-solicitacoes"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Cadastro rápido de paciente a partir de pré-agendamento -->
+    <div id="modal-paciente-rapido" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-pac-rapido">
+      <div class="modal-sheet">
+        <div class="modal-topo">
+          <h2 id="titulo-modal-pac-rapido">Completar cadastro do paciente</h2>
+          <button type="button" class="icon-btn" data-fechar-modal aria-label="Fechar">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <form id="form-paciente-rapido" class="form-grid">
+          <div class="campo">
+            <label for="pr-nome">Nome completo</label>
+            <input id="pr-nome" name="nome" class="input" required minlength="3" />
+          </div>
+          <div class="form-row">
+            <div class="campo">
+              <label for="pr-cpf">CPF</label>
+              <input id="pr-cpf" name="cpf" class="input tabular" required inputmode="numeric" placeholder="000.000.000-00" />
+            </div>
+            <div class="campo">
+              <label for="pr-tel">Telefone</label>
+              <input id="pr-tel" name="telefone" class="input tabular" required inputmode="tel" placeholder="(11) 99999-9999" />
+            </div>
+          </div>
+          <div class="campo">
+            <label for="pr-end">Endereço</label>
+            <input id="pr-end" name="endereco" class="input" required minlength="5" />
+          </div>
+          <div class="campo">
+            <label for="pr-anam">Observação / Anamnese</label>
+            <textarea id="pr-anam" name="anamnese" class="textarea"></textarea>
+          </div>
+          <p id="erro-paciente-rapido" class="erro-inline" role="alert"></p>
+          <div class="form-rodape">
+            <button type="button" class="btn btn-secundario" data-fechar-modal>Cancelar</button>
+            <button type="submit" class="btn btn-primario">Cadastrar e agendar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: Faturar atendimento concluído -->
+    <div id="modal-faturar" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-faturar">
+      <div class="modal-sheet">
+        <div class="modal-topo">
+          <h2 id="titulo-modal-faturar">Faturar atendimento</h2>
+          <button type="button" class="icon-btn" data-fechar-modal aria-label="Fechar">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <form id="form-faturar" class="form-grid">
+          <input type="hidden" name="consulta_id" />
+          <p id="faturar-resumo" class="td-secundario"></p>
+          <div class="form-row">
+            <div class="campo">
+              <label for="fat-valor">Valor (R$)</label>
+              <input id="fat-valor" name="valor" type="number" step="0.01" min="0.01" class="input tabular" required />
+            </div>
+            <div class="campo">
+              <label for="fat-status">Situação</label>
+              <select id="fat-status" name="status" class="select">
+                <option value="pago">Pago</option>
+                <option value="pendente">Pendente</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="campo">
+              <label for="fat-forma">Forma de pagamento</label>
+              <select id="fat-forma" name="forma_pagamento" class="select">
+                <option value="PIX">PIX</option>
+                <option value="Cartão de crédito">Cartão de crédito</option>
+                <option value="Débito">Débito</option>
+                <option value="Dinheiro">Dinheiro</option>
+              </select>
+            </div>
+            <div class="campo">
+              <label for="fat-cat">Categoria</label>
+              <input id="fat-cat" name="categoria" class="input" value="Consultas" required minlength="2" />
+            </div>
+          </div>
+          <p id="erro-faturar" class="erro-inline" role="alert"></p>
+          <div class="form-rodape">
+            <button type="button" class="btn btn-secundario" data-fechar-modal>Agora não</button>
+            <button type="submit" class="btn btn-primario">Registrar no financeiro</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="core.js"></script>
+    <script src="painel.js"></script>
+  </body>
+</html>

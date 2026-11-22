@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Configurações - SmileClinic</title>
+    <script src="theme.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="painel.css" />
+  </head>
+  <body data-pagina="configuracoes">
+    <div class="app-shell">
+      <div id="sidebar-slot"></div>
+
+      <main class="conteudo">
+        <header class="page-header">
+          <div class="page-header-titulo">
+            <h1>Configurações</h1>
+          </div>
+        </header>
+
+        <section class="grid-2">
+          <div class="card">
+            <div class="card-topo">
+              <h2>Dados da unidade</h2>
+            </div>
+            <form id="form-config" class="form-grid">
+              <div class="form-row">
+                <div class="campo">
+                  <label for="cfg-nome">Nome da clínica</label>
+                  <input id="cfg-nome" name="nome_clinica" class="input" required minlength="2" />
+                </div>
+                <div class="campo">
+                  <label for="cfg-unidade">Unidade</label>
+                  <input id="cfg-unidade" name="unidade" class="input" required minlength="2" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="campo">
+                  <label for="cfg-tel">Telefone</label>
+                  <input id="cfg-tel" name="telefone" class="input tabular" required />
+                </div>
+                <div class="campo">
+                  <label for="cfg-slots">Vagas diárias por dentista</label>
+                  <input id="cfg-slots" name="slots_diarios_por_dentista" type="number" min="1" max="40" class="input tabular" required />
+                </div>
+              </div>
+              <div class="campo">
+                <label for="cfg-end">Endereço</label>
+                <input id="cfg-end" name="endereco" class="input" required minlength="5" />
+              </div>
+              <div class="campo">
+                <label for="cfg-hor">Horário de funcionamento</label>
+                <input id="cfg-hor" name="horario_funcionamento" class="input" required />
+              </div>
+              <div class="form-rodape">
+                <span></span>
+                <button type="submit" class="btn btn-primario">Salvar alterações</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="coluna-stack">
+            <div class="card">
+              <div class="card-topo">
+                <h2>Aparência</h2>
+              </div>
+              <div id="seg-tema" class="segmented" role="tablist" aria-label="Tema da interface">
+                <div class="segmented-thumb" aria-hidden="true"></div>
+                <button type="button" role="tab" data-pref-tema="light" aria-selected="false">Claro</button>
+                <button type="button" role="tab" data-pref-tema="dark" aria-selected="false">Escuro</button>
+                <button type="button" role="tab" data-pref-tema="system" aria-selected="true">Sistema</button>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-topo">
+                <h2>Conta conectada</h2>
+              </div>
+              <div class="alerta-item">
+                <strong>Profissional</strong>
+                <p id="perfil-nome">—</p>
+                <small id="perfil-cargo">—</small>
+              </div>
+              <div class="alerta-item">
+                <strong>E-mail de acesso</strong>
+                <p id="perfil-email">—</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="core.js"></script>
+    <script src="painel.js"></script>
+  </body>
+</html>
