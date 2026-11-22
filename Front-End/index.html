@@ -121,7 +121,7 @@
                 Check-in fácil, curta espera e ambiente acolhedor. Venha
                 conhecer a diferença de um atendimento realmente humanizado.
               </p>
-              <a href="#formulario" class="servico-link" id="link-consulta" aria-label="Agendar Primeira Consulta">
+              <a href="#formulario" class="servico-link" id="link-consulta" data-servico="primeira-consulta" aria-label="Agendar Primeira Consulta">
                 Agendar &rarr;
               </a>
             </li>
@@ -133,7 +133,7 @@
                 Remoção de tártaro, polimento e orientação de higiene bucal.
                 Sessão completa em até 60 minutos.
               </p>
-              <a href="#formulario" class="servico-link" id="link-limpeza" aria-label="Agendar Limpeza e Profilaxia">
+              <a href="#formulario" class="servico-link" id="link-limpeza" data-servico="limpeza" aria-label="Agendar Limpeza e Profilaxia">
                 Agendar &rarr;
               </a>
             </li>
@@ -144,7 +144,7 @@
                 Dor de dente não espera. Atendimento no mesmo dia para casos
                 urgentes, agendado online instantaneamente.
               </p>
-              <a href="#formulario" class="servico-link" id="link-emergencia" aria-label="Agendar Atendimento de Urgência">
+              <a href="#formulario" class="servico-link" id="link-emergencia" data-servico="emergencia" aria-label="Agendar Atendimento de Urgência">
                 Agendar &rarr;
               </a>
             </li>
@@ -155,7 +155,7 @@
                 Aparelhos fixos, móveis e alinhadores transparentes. Sorriso
                 alinhado com o tratamento ideal para seu caso.
               </p>
-              <a href="#formulario" class="servico-link" id="link-ortodontia" aria-label="Agendar Ortodontia">
+              <a href="#formulario" class="servico-link" id="link-ortodontia" data-servico="ortodontia" aria-label="Agendar Ortodontia">
                 Agendar &rarr;
               </a>
             </li>
@@ -166,7 +166,7 @@
                 Sorriso mais brilhante em uma única sessão. Resultado
                 profissional e duradouro com técnica segura.
               </p>
-              <a href="#formulario" class="servico-link" id="link-clareamento" aria-label="Agendar Clareamento Dental">
+              <a href="#formulario" class="servico-link" id="link-clareamento" data-servico="clareamento" aria-label="Agendar Clareamento Dental">
                 Agendar &rarr;
               </a>
             </li>
@@ -177,7 +177,7 @@
                 Especialistas em implantes com tecnologia 3D guiada para
                 resultados precisos e duradouros.
               </p>
-              <a href="#formulario" class="servico-link" id="link-implante" aria-label="Agendar Implantes">
+              <a href="#formulario" class="servico-link" id="link-implante" data-servico="implante" aria-label="Agendar Implantes">
                 Agendar &rarr;
               </a>
             </li>
@@ -186,65 +186,119 @@
       </section>
 
       <section class="depoimentos" id="depoimentos" aria-labelledby="depoimentos-titulo">
-        <div class="section-container">
+        <div class="section-container depoimentos-container">
           <div class="section-cabecalho">
             <p class="section-tag">O que dizem nossos pacientes</p>
             <h2 class="section-titulo" id="depoimentos-titulo">
               Sorrisos que falam por si
             </h2>
           </div>
-          <div class="depoimentos-grid" role="list">
-            <article class="depoimento-card" role="listitem">
-              <div class="depoimento-estrelas" aria-label="5 estrelas" aria-hidden="true">
-                &#9733;&#9733;&#9733;&#9733;&#9733;
+          <div class="depoimentos-marquee" id="depoimentos-marquee" aria-label="Depoimentos de pacientes">
+            <div class="depoimentos-track" id="depoimentos-track">
+              <div class="depoimentos-grupo" role="list">
+                <article class="depoimento-card" role="listitem">
+                  <div class="depoimento-estrelas" aria-label="5 estrelas" aria-hidden="true">
+                    &#9733;&#9733;&#9733;&#9733;&#9733;
+                  </div>
+                  <blockquote class="depoimento-texto">
+                    "Marquei pelo site e fui atendida no horário. A equipe é
+                    incrível, muito atenciosa. Nunca tive tanto cuidado em uma
+                    consulta odontológica."
+                  </blockquote>
+                  <footer class="depoimento-autor">
+                    <div class="autor-avatar" aria-hidden="true">C</div>
+                    <div>
+                      <p class="autor-nome">Camila P.</p>
+                      <p class="autor-servico">Limpeza e Profilaxia</p>
+                    </div>
+                  </footer>
+                </article>
+                <article class="depoimento-card" role="listitem">
+                  <div class="depoimento-estrelas" aria-label="5 estrelas" aria-hidden="true">
+                    &#9733;&#9733;&#9733;&#9733;&#9733;
+                  </div>
+                  <blockquote class="depoimento-texto">
+                    "A equipe administrativa é sempre gentil. Me sinto ouvido e
+                    compreendido. O serviço é de alta qualidade e o atendimento é
+                    muito humano."
+                  </blockquote>
+                  <footer class="depoimento-autor">
+                    <div class="autor-avatar" aria-hidden="true">D</div>
+                    <div>
+                      <p class="autor-nome">Diego T.</p>
+                      <p class="autor-servico">Consulta de Avaliação</p>
+                    </div>
+                  </footer>
+                </article>
+                <article class="depoimento-card" role="listitem">
+                  <div class="depoimento-estrelas" aria-label="5 estrelas" aria-hidden="true">
+                    &#9733;&#9733;&#9733;&#9733;&#9733;
+                  </div>
+                  <blockquote class="depoimento-texto">
+                    "A higienista explicou cada etapa da limpeza. O dentista se
+                    preocupou com como eu estava. É uma clínica centrada no
+                    paciente e você não vai se arrepender."
+                  </blockquote>
+                  <footer class="depoimento-autor">
+                    <div class="autor-avatar" aria-hidden="true">J</div>
+                    <div>
+                      <p class="autor-nome">Juliana F.</p>
+                      <p class="autor-servico">Limpeza e Profilaxia</p>
+                    </div>
+                  </footer>
+                </article>
+                <article class="depoimento-card" role="listitem">
+                  <div class="depoimento-estrelas" aria-label="5 estrelas" aria-hidden="true">
+                    &#9733;&#9733;&#9733;&#9733;&#9733;
+                  </div>
+                  <blockquote class="depoimento-texto">
+                    "Fiz o clareamento em consultório e o resultado superou o
+                    esperado sem nenhuma sensibilidade. Ambiente silencioso,
+                    limpo e pontual."
+                  </blockquote>
+                  <footer class="depoimento-autor">
+                    <div class="autor-avatar" aria-hidden="true">R</div>
+                    <div>
+                      <p class="autor-nome">Renata S.</p>
+                      <p class="autor-servico">Clareamento Dental</p>
+                    </div>
+                  </footer>
+                </article>
+                <article class="depoimento-card" role="listitem">
+                  <div class="depoimento-estrelas" aria-label="5 estrelas" aria-hidden="true">
+                    &#9733;&#9733;&#9733;&#9733;&#9733;
+                  </div>
+                  <blockquote class="depoimento-texto">
+                    "Acompanho minha ortodontia há mais de um ano aqui. Cada
+                    retorno é organizado, rápido e com explicação clara da
+                    evolução."
+                  </blockquote>
+                  <footer class="depoimento-autor">
+                    <div class="autor-avatar" aria-hidden="true">L</div>
+                    <div>
+                      <p class="autor-nome">Lucas M.</p>
+                      <p class="autor-servico">Ortodontia</p>
+                    </div>
+                  </footer>
+                </article>
+                <article class="depoimento-card" role="listitem">
+                  <div class="depoimento-estrelas" aria-label="5 estrelas" aria-hidden="true">
+                    &#9733;&#9733;&#9733;&#9733;&#9733;
+                  </div>
+                  <blockquote class="depoimento-texto">
+                    "Tive receio antes do implante, mas o planejamento 3D e a
+                    calma do dentista tornaram tudo tranquilo do início ao fim."
+                  </blockquote>
+                  <footer class="depoimento-autor">
+                    <div class="autor-avatar" aria-hidden="true">H</div>
+                    <div>
+                      <p class="autor-nome">Henrique B.</p>
+                      <p class="autor-servico">Implantes</p>
+                    </div>
+                  </footer>
+                </article>
               </div>
-              <blockquote class="depoimento-texto">
-                "Marquei pelo site e fui atendida no horário. A equipe é
-                incrível, muito atenciosa. Nunca tive tanto cuidado em uma
-                consulta odontológica."
-              </blockquote>
-              <footer class="depoimento-autor">
-                <div class="autor-avatar" aria-hidden="true">C</div>
-                <div>
-                  <p class="autor-nome">Camila P.</p>
-                  <p class="autor-servico">Limpeza e Profilaxia</p>
-                </div>
-              </footer>
-            </article>
-            <article class="depoimento-card" role="listitem">
-              <div class="depoimento-estrelas" aria-label="5 estrelas" aria-hidden="true">
-                &#9733;&#9733;&#9733;&#9733;&#9733;
-              </div>
-              <blockquote class="depoimento-texto">
-                "A equipe administrativa é sempre gentil. Me sinto ouvido e
-                compreendido. O serviço é de alta qualidade e o atendimento é
-                muito humano."
-              </blockquote>
-              <footer class="depoimento-autor">
-                <div class="autor-avatar" aria-hidden="true">D</div>
-                <div>
-                  <p class="autor-nome">Diego T.</p>
-                  <p class="autor-servico">Consulta de Avaliação</p>
-                </div>
-              </footer>
-            </article>
-            <article class="depoimento-card" role="listitem">
-              <div class="depoimento-estrelas" aria-label="5 estrelas" aria-hidden="true">
-                &#9733;&#9733;&#9733;&#9733;&#9733;
-              </div>
-              <blockquote class="depoimento-texto">
-                "A higienista explicou cada etapa da limpeza. O dentista se
-                preocupou com como eu estava. É uma clínica centrada no
-                paciente e você não vai se arrepender."
-              </blockquote>
-              <footer class="depoimento-autor">
-                <div class="autor-avatar" aria-hidden="true">J</div>
-                <div>
-                  <p class="autor-nome">Juliana F.</p>
-                  <p class="autor-servico">Limpeza e Profilaxia</p>
-                </div>
-              </footer>
-            </article>
+            </div>
           </div>
         </div>
       </section>
