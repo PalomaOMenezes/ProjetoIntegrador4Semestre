@@ -449,18 +449,28 @@ function montarShell(paginaAtiva) {
         item.id === paginaAtiva ? 'aria-current="page"' : ''
       }><span>${item.rotulo}</span><span class="nav-badge oculto" data-badge="${item.id}"></span></a></li>`;
 
+    const logoSvg = `
+      <svg class="painel-logo-marca" viewBox="0 0 32 32" aria-hidden="true">
+        <rect class="painel-logo-bg" width="32" height="32" rx="9" />
+        <path class="painel-logo-dente" d="M10.2 11.4c0-3.1 3.3-3.6 5.8-2 2.5-1.6 5.8-1.1 5.8 2 0 3.7-1.4 6.5-2 11-.2 1.6-2 1.8-2.5.2l-.7-2.5c-.2-.7-1-.7-1.2 0l-.7 2.5c-.5 1.6-2.3 1.4-2.5-.2-.6-4.5-2-7.3-2-11Z" />
+        <path class="painel-logo-sorriso" d="M13.2 13.7c1.6 1.5 4 1.5 5.6 0" />
+      </svg>`;
+
     slot.outerHTML = `
       <header class="topbar-mobile">
         <button type="button" class="icon-btn" id="btn-abrir-menu" aria-label="Abrir navegação">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
-        <strong data-clinica-nome>SmileClinic</strong>
+        <div class="topbar-marca-wrap">${logoSvg}<strong data-clinica-nome>SmileClinic</strong></div>
         <button type="button" class="icon-btn" data-toggle-tema aria-label="Alternar tema"></button>
       </header>
       <div class="sidebar-scrim" id="sidebar-scrim"></div>
       <aside class="sidebar" id="sidebar" aria-label="Navegação principal">
         <a href="agenda.html" class="sidebar-marca">
-          <strong data-clinica-nome>SmileClinic</strong>
+          <div class="sidebar-marca-topo">
+            ${logoSvg}
+            <strong data-clinica-nome>SmileClinic</strong>
+          </div>
           <span data-clinica-unidade>Unidade principal</span>
         </a>
         <ul class="nav-lista">

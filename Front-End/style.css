@@ -129,12 +129,47 @@ img { max-width: 100%; display: block; }
 .nav-logo {
   display: inline-flex;
   align-items: center;
+  gap: 10px;
   font-family: var(--fonte-titulo);
   font-size: 1.28rem;
   font-weight: 700;
   color: var(--cor-texto);
   letter-spacing: -0.025em;
   white-space: nowrap;
+}
+
+.logo-marca {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  transition: transform var(--transicao);
+}
+
+.nav-logo:hover .logo-marca {
+  transform: scale(1.06);
+}
+
+.logo-marca-bg {
+  fill: var(--cor-primaria);
+}
+
+.logo-marca-dente {
+  fill: #ffffff;
+}
+
+.logo-marca-sorriso {
+  fill: none;
+  stroke: var(--cor-primaria);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+}
+
+.footer .logo-marca-bg {
+  fill: rgba(255, 255, 255, 0.14);
+}
+
+.footer .logo-marca-sorriso {
+  stroke: var(--cor-texto);
 }
 
 .nav-menu {
