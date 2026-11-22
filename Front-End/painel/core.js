@@ -449,18 +449,28 @@ function montarShell(paginaAtiva) {
         item.id === paginaAtiva ? 'aria-current="page"' : ''
       }><span>${item.rotulo}</span><span class="nav-badge oculto" data-badge="${item.id}"></span></a></li>`;
 
+    const logoSvg = `
+      <svg class="painel-logo-marca" viewBox="0 0 32 32" aria-hidden="true">
+        <rect class="painel-logo-bg" width="32" height="32" rx="9" />
+        <path class="painel-logo-dente" d="M10.2 11.4c0-3.1 3.3-3.6 5.8-2 2.5-1.6 5.8-1.1 5.8 2 0 3.7-1.4 6.5-2 11-.2 1.6-2 1.8-2.5.2l-.7-2.5c-.2-.7-1-.7-1.2 0l-.7 2.5c-.5 1.6-2.3 1.4-2.5-.2-.6-4.5-2-7.3-2-11Z" />
+        <path class="painel-logo-sorriso" d="M13.2 13.7c1.6 1.5 4 1.5 5.6 0" />
+      </svg>`;
+
     slot.outerHTML = `
       <header class="topbar-mobile">
         <button type="button" class="icon-btn" id="btn-abrir-menu" aria-label="Abrir navegação">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
-        <strong data-clinica-nome>SmileClinic</strong>
+        <div class="topbar-marca-wrap">${logoSvg}<strong data-clinica-nome>SmileClinic</strong></div>
         <button type="button" class="icon-btn" data-toggle-tema aria-label="Alternar tema"></button>
       </header>
       <div class="sidebar-scrim" id="sidebar-scrim"></div>
       <aside class="sidebar" id="sidebar" aria-label="Navegação principal">
         <a href="agenda.html" class="sidebar-marca">
-          <strong data-clinica-nome>SmileClinic</strong>
+          <div class="sidebar-marca-topo">
+            ${logoSvg}
+            <strong data-clinica-nome>SmileClinic</strong>
+          </div>
           <span data-clinica-unidade>Unidade principal</span>
         </a>
         <ul class="nav-lista">
@@ -517,6 +527,7 @@ function montarShell(paginaAtiva) {
   carregarMetadadosShell();
   inicializarModais();
   inicializarSelectsCustomizados();
+  inicializarCalendariosCustomizados();
   return usuario;
 }
 
@@ -607,6 +618,7 @@ function abrirMenuSelect(ctx) {
     return;
   }
   if (_selectAtivo) fecharMenuSelect(false);
+  if (typeof fecharCalendario === 'function') fecharCalendario(false);
 
   const { select, trigger } = ctx;
   const isPill = select.classList.contains('status-select');
@@ -862,6 +874,436 @@ function inicializarSelectsCustomizados() {
     }
   });
   obsGlobal.observe(document.body, { childList: true, subtree: true });
+}
+
+/* ---------- Custom Date Picker Popover (estilo iOS 60fps) ---------- */
+
+const _CALENDAR_SVG =
+  '<svg class="sc-date-icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="2.2"/><path d="M2 6.5h12M5.2 1.8v2.4M10.8 1.8v2.4"/></svg>';
+const _DATE_VALUE_DESC = Object.getOwnPropertyDescriptor(
+  HTMLInputElement.prototype,
+  'value'
+);
+const _MESES_CAL = [
+  'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+  'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro',
+];
+const _MESES_CURTOS = [
+  'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+  'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez',
+];
+const _DIAS_SEMANA_CAL = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+
+let _calPopEl = null;
+let _calAtivo = null;
+let _calAno = 2026;
+let _calMes = 0;
+let _calModo = 'dias';
+let _calGlobalInit = false;
+
+function formatarDataDisplay(iso) {
+  if (!iso || !/^\d{4}-\d{2}-\d{2}$/.test(iso)) return '';
+  const [a, m, d] = iso.split('-');
+  return `${d}/${m}/${a}`;
+}
+
+function parseIsoParts(iso) {
+  if (!iso || !/^\d{4}-\d{2}-\d{2}$/.test(iso)) return null;
+  const [a, m, d] = iso.split('-').map(Number);
+  return { ano: a, mes: m - 1, dia: d };
+}
+
+function montarIsoData(ano, mesZero, dia) {
+  return `${ano}-${String(mesZero + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+}
+
+function garantirPopoverCalendario() {
+  if (!_calPopEl) {
+    _calPopEl = document.createElement('div');
+    _calPopEl.className = 'sc-date-popover';
+    _calPopEl.setAttribute('role', 'dialog');
+    _calPopEl.setAttribute('aria-modal', 'false');
+    _calPopEl.setAttribute('aria-label', 'Selecionar data');
+    _calPopEl.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(_calPopEl);
+  }
+  return _calPopEl;
+}
+
+function posicionarCalendario(trigger) {
+  const pop = garantirPopoverCalendario();
+  const rect = trigger.getBoundingClientRect();
+  const margem = 10;
+  const largura = 276;
+  const alturaEst = 316;
+
+  pop.classList.remove('para-cima');
+  const espacoAbaixo = window.innerHeight - rect.bottom - margem;
+  const espacoAcima = rect.top - margem;
+  const abrirAcima = espacoAbaixo < alturaEst && espacoAcima > espacoAbaixo;
+  const top = abrirAcima
+    ? Math.max(margem, rect.top - alturaEst - 6)
+    : rect.bottom + 6;
+  const left = Math.max(
+    margem,
+    Math.min(rect.left, window.innerWidth - largura - margem)
+  );
+
+  pop.classList.toggle('para-cima', abrirAcima);
+  pop.style.top = `${Math.round(top)}px`;
+  pop.style.left = `${Math.round(left)}px`;
+}
+
+function fecharCalendario(devolverFoco = false) {
+  if (!_calAtivo || !_calPopEl) return;
+  const { trigger } = _calAtivo;
+  trigger.setAttribute('aria-expanded', 'false');
+  _calPopEl.classList.remove('aberto');
+  _calPopEl.setAttribute('aria-hidden', 'true');
+  _calAtivo = null;
+  _calModo = 'dias';
+  if (devolverFoco) trigger.focus();
+}
+
+function renderizarCalendario() {
+  if (!_calAtivo) return;
+  const pop = garantirPopoverCalendario();
+  const { input } = _calAtivo;
+  const hoje = hojeISO();
+  const valAtual = input.value;
+
+  const setaEsq =
+    '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3.5L5.5 8 10 12.5"/></svg>';
+  const setaDir =
+    '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5L10.5 8 6 12.5"/></svg>';
+
+  if (_calModo === 'meses') {
+    const mesesHtml = _MESES_CURTOS.map((nome, idx) => {
+      const ativo = idx === _calMes;
+      return `<button type="button" class="sc-date-mes-btn${
+        ativo ? ' ativo' : ''
+      }" data-mes="${idx}">${nome}</button>`;
+    }).join('');
+
+    pop.innerHTML = `
+      <div class="sc-date-header">
+        <button type="button" class="sc-date-nav" data-nav-ano="-1" aria-label="Ano anterior">${setaEsq}</button>
+        <button type="button" class="sc-date-titulo" data-toggle-modo>
+          <span>${_calAno}</span>
+          ${_CHEVRON_SVG}
+        </button>
+        <button type="button" class="sc-date-nav" data-nav-ano="1" aria-label="Próximo ano">${setaDir}</button>
+      </div>
+      <div class="sc-date-meses-grid">${mesesHtml}</div>
+      <div class="sc-date-footer">
+        <button type="button" class="sc-date-acao" data-cal-limpar ${
+          input.required ? 'disabled' : ''
+        }>Limpar</button>
+        <button type="button" class="sc-date-acao destaque" data-cal-hoje>Hoje</button>
+      </div>
+    `;
+    return;
+  }
+
+  const primeiroDiaSemana = new Date(_calAno, _calMes, 1).getDay();
+  const diasNoMes = new Date(_calAno, _calMes + 1, 0).getDate();
+  const diasMesAnt = new Date(_calAno, _calMes, 0).getDate();
+
+  const celulas = [];
+  for (let i = primeiroDiaSemana - 1; i >= 0; i -= 1) {
+    const d = diasMesAnt - i;
+    const prevMes = _calMes === 0 ? 11 : _calMes - 1;
+    const prevAno = _calMes === 0 ? _calAno - 1 : _calAno;
+    celulas.push({
+      dia: d,
+      iso: montarIsoData(prevAno, prevMes, d),
+      fora: true,
+    });
+  }
+  for (let d = 1; d <= diasNoMes; d += 1) {
+    celulas.push({
+      dia: d,
+      iso: montarIsoData(_calAno, _calMes, d),
+      fora: false,
+    });
+  }
+  const faltam = 42 - celulas.length;
+  for (let d = 1; d <= faltam; d += 1) {
+    const proxMes = _calMes === 11 ? 0 : _calMes + 1;
+    const proxAno = _calMes === 11 ? _calAno + 1 : _calAno;
+    celulas.push({
+      dia: d,
+      iso: montarIsoData(proxAno, proxMes, d),
+      fora: true,
+    });
+  }
+
+  const diasHtml = celulas
+    .map((c) => {
+      const classes = ['sc-date-day'];
+      if (c.fora) classes.push('fora');
+      if (c.iso === hoje) classes.push('hoje');
+      if (c.iso === valAtual) classes.push('selecionado');
+      return `<button type="button" class="${classes.join(' ')}" data-iso="${
+        c.iso
+      }" aria-pressed="${String(c.iso === valAtual)}">${c.dia}</button>`;
+    })
+    .join('');
+
+  pop.innerHTML = `
+    <div class="sc-date-header">
+      <button type="button" class="sc-date-nav" data-nav-mes="-1" aria-label="Mês anterior">${setaEsq}</button>
+      <button type="button" class="sc-date-titulo" data-toggle-modo>
+        <span>${_MESES_CAL[_calMes]} ${_calAno}</span>
+        ${_CHEVRON_SVG}
+      </button>
+      <button type="button" class="sc-date-nav" data-nav-mes="1" aria-label="Próximo mês">${setaDir}</button>
+    </div>
+    <div class="sc-date-semana">
+      ${_DIAS_SEMANA_CAL.map((s) => `<span>${s}</span>`).join('')}
+    </div>
+    <div class="sc-date-grid">${diasHtml}</div>
+    <div class="sc-date-footer">
+      <button type="button" class="sc-date-acao" data-cal-limpar ${
+        input.required ? 'disabled' : ''
+      }>Limpar</button>
+      <button type="button" class="sc-date-acao destaque" data-cal-hoje>Hoje</button>
+    </div>
+  `;
+}
+
+function abrirCalendario(ctx) {
+  if (_calAtivo === ctx) {
+    fecharCalendario(true);
+    return;
+  }
+  fecharCalendario(false);
+  fecharMenuSelect(false);
+
+  const { input, trigger } = ctx;
+  if (input.disabled) return;
+
+  const ref = parseIsoParts(input.value) || parseIsoParts(hojeISO());
+  _calAno = ref.ano;
+  _calMes = ref.mes;
+  _calModo = 'dias';
+  _calAtivo = ctx;
+
+  const pop = garantirPopoverCalendario();
+  renderizarCalendario();
+  trigger.setAttribute('aria-expanded', 'true');
+  pop.setAttribute('aria-hidden', 'false');
+  pop.classList.remove('aberto');
+
+  posicionarCalendario(trigger);
+  void pop.offsetWidth;
+  pop.classList.add('aberto');
+}
+
+function sincronizarDateInput(input) {
+  const ctx = input._scDate;
+  if (!ctx) return;
+  if (!input.classList.contains('sc-date-native')) {
+    input.classList.add('sc-date-native');
+  }
+  const { trigger, labelEl } = ctx;
+  const formatado = formatarDataDisplay(input.value);
+  labelEl.textContent = formatado || 'Selecionar data';
+  labelEl.classList.toggle('placeholder', !formatado);
+  trigger.disabled = input.disabled;
+}
+
+function aprimorarDateInput(input) {
+  if (!input || input.type !== 'date' || input._scDate) return;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'sc-date-wrap';
+
+  const trigger = document.createElement('button');
+  trigger.type = 'button';
+  trigger.className = 'sc-date-trigger';
+  trigger.setAttribute('aria-haspopup', 'dialog');
+  trigger.setAttribute('aria-expanded', 'false');
+  if (input.getAttribute('aria-label')) {
+    trigger.setAttribute('aria-label', input.getAttribute('aria-label'));
+  }
+
+  const labelEl = document.createElement('span');
+  labelEl.className = 'sc-date-label';
+  trigger.appendChild(labelEl);
+  trigger.insertAdjacentHTML('beforeend', _CALENDAR_SVG);
+
+  input.parentNode.insertBefore(wrap, input);
+  wrap.appendChild(input);
+  wrap.appendChild(trigger);
+
+  input.classList.add('sc-date-native');
+  input.setAttribute('tabindex', '-1');
+  input.setAttribute('aria-hidden', 'true');
+
+  const ctx = { input, trigger, labelEl, wrap };
+  input._scDate = ctx;
+
+  if (_DATE_VALUE_DESC && _DATE_VALUE_DESC.set) {
+    Object.defineProperty(input, 'value', {
+      configurable: true,
+      get() {
+        return _DATE_VALUE_DESC.get.call(this);
+      },
+      set(val) {
+        _DATE_VALUE_DESC.set.call(this, val);
+        sincronizarDateInput(this);
+      },
+    });
+  }
+
+  if (input.id) {
+    const labelFor = document.querySelector(`label[for="${CSS.escape(input.id)}"]`);
+    labelFor?.addEventListener('click', (e) => {
+      e.preventDefault();
+      trigger.focus();
+      abrirCalendario(ctx);
+    });
+  }
+
+  input.form?.addEventListener('reset', () => {
+    requestAnimationFrame(() => sincronizarDateInput(input));
+  });
+  input.addEventListener('change', () => sincronizarDateInput(input));
+
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    abrirCalendario(ctx);
+  });
+
+  trigger.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      abrirCalendario(ctx);
+    } else if (e.key === 'Escape' && _calAtivo === ctx) {
+      e.preventDefault();
+      fecharCalendario(true);
+    }
+  });
+
+  sincronizarDateInput(input);
+}
+
+function inicializarCalendariosCustomizados() {
+  $$('input[type="date"]').forEach(aprimorarDateInput);
+  if (_calGlobalInit) return;
+  _calGlobalInit = true;
+
+  const pop = garantirPopoverCalendario();
+  pop.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!_calAtivo) return;
+    const { input } = _calAtivo;
+
+    const navMes = e.target.closest('[data-nav-mes]');
+    if (navMes) {
+      const delta = Number(navMes.dataset.navMes);
+      _calMes += delta;
+      if (_calMes < 0) {
+        _calMes = 11;
+        _calAno -= 1;
+      } else if (_calMes > 11) {
+        _calMes = 0;
+        _calAno += 1;
+      }
+      renderizarCalendario();
+      return;
+    }
+
+    const navAno = e.target.closest('[data-nav-ano]');
+    if (navAno) {
+      _calAno += Number(navAno.dataset.navAno);
+      renderizarCalendario();
+      return;
+    }
+
+    if (e.target.closest('[data-toggle-modo]')) {
+      _calModo = _calModo === 'dias' ? 'meses' : 'dias';
+      renderizarCalendario();
+      return;
+    }
+
+    const mesBtn = e.target.closest('[data-mes]');
+    if (mesBtn) {
+      _calMes = Number(mesBtn.dataset.mes);
+      _calModo = 'dias';
+      renderizarCalendario();
+      return;
+    }
+
+    const diaBtn = e.target.closest('[data-iso]');
+    if (diaBtn) {
+      const novoIso = diaBtn.dataset.iso;
+      const mudou = input.value !== novoIso;
+      input.value = novoIso;
+      fecharCalendario(true);
+      if (mudou) input.dispatchEvent(new Event('change', { bubbles: true }));
+      return;
+    }
+
+    if (e.target.closest('[data-cal-hoje]')) {
+      const hoje = hojeISO();
+      const mudou = input.value !== hoje;
+      input.value = hoje;
+      fecharCalendario(true);
+      if (mudou) input.dispatchEvent(new Event('change', { bubbles: true }));
+      return;
+    }
+
+    if (e.target.closest('[data-cal-limpar]') && !input.required) {
+      const mudou = input.value !== '';
+      input.value = '';
+      fecharCalendario(true);
+      if (mudou) input.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!_calAtivo) return;
+    if (
+      !_calPopEl.contains(e.target) &&
+      !_calAtivo.trigger.contains(e.target)
+    ) {
+      fecharCalendario(false);
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && _calAtivo) {
+      e.stopPropagation();
+      fecharCalendario(true);
+    }
+  });
+
+  window.addEventListener('resize', () => fecharCalendario(false));
+  window.addEventListener(
+    'scroll',
+    (e) => {
+      if (_calAtivo && e.target !== _calPopEl) {
+        fecharCalendario(false);
+      }
+    },
+    true
+  );
+
+  const obsData = new MutationObserver((muts) => {
+    for (const mut of muts) {
+      for (const node of mut.addedNodes) {
+        if (node.nodeType !== 1) continue;
+        if (node.tagName === 'INPUT' && node.type === 'date') {
+          aprimorarDateInput(node);
+        } else if (node.querySelectorAll) {
+          node.querySelectorAll('input[type="date"]').forEach(aprimorarDateInput);
+        }
+      }
+    }
+  });
+  obsData.observe(document.body, { childList: true, subtree: true });
 }
 
 async function carregarMetadadosShell() {

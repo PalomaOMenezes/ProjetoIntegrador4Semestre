@@ -5,6 +5,13 @@ Projeto Integrador (SENAC 2026). O sistema reúne duas frentes integradas a uma 
 - **Landing page** (`Front-End/index.html`) para o paciente enviar pedidos de pré-agendamento.
 - **Sistema interno da clínica** (`Front-End/painel/`) para recepção, equipe clínica e gestão: login com JWT, agenda (Lista, Dia e Semana), conversão de pré-agendamentos, cadastro de pacientes e equipe, prontuário eletrônico completo (evolução clínica, anamnese, odontograma FDI, plano de tratamento e documentos), módulo financeiro, dashboard gerencial com gráfico de 6 meses e exportação CSV, configurações da unidade e modo noturno.
 
+## Demonstração pública (Vercel)
+
+- **Landing page:** https://smileclinic-demo.vercel.app/
+- **Sistema interno (login):** https://smileclinic-demo.vercel.app/painel/login.html
+- **API / Swagger:** https://smileclinic-demo.vercel.app/api/docs
+- **Login de demonstração:** `ana@smileclinic.com` / `smile2026`
+
 ## Stack
 
 - **Front-end:** HTML5, CSS3 (identidade monocromática com tema claro/escuro e animações 60fps) e JavaScript puro (sem etapa de build), responsivo para computador, tablet e celular.
