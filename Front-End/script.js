@@ -229,6 +229,15 @@ document.querySelectorAll('.nav-menu .nav-link, .nav-menu .nav-clinica, .nav-men
   const clone = grupoOriginal.cloneNode(true);
   clone.setAttribute('aria-hidden', 'true');
   track.appendChild(clone);
+
+  /* Garante que toques no mobile nunca deixem a animação pausada */
+  track.addEventListener(
+    'touchend',
+    function () {
+      track.style.animationPlayState = 'running';
+    },
+    { passive: true }
+  );
 })();
 
 /* ---------- Select customizado animado no formulário ---------- */

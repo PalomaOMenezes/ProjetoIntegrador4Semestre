@@ -685,13 +685,13 @@ function telaPacientes() {
                 : 'Sem alertas';
               return `
                 <tr>
-                  <td class="td-forte">${esc(p.nome)}</td>
-                  <td class="td-secundario tabular">${nascTxt}</td>
-                  <td class="td-secundario tabular">${formatarCpf(p.cpf)}</td>
-                  <td class="td-secundario tabular">${formatarTelefone(p.telefone)}</td>
-                  <td class="td-secundario">${anamneseResumo}</td>
-                  <td class="td-acoes">
-                    <a class="btn btn-fantasma btn-sm" href="prontuario.html?paciente=${p.id}">Prontuário</a>
+                  <td class="td-forte" data-label="Paciente">${esc(p.nome)}</td>
+                  <td class="td-secundario tabular" data-label="Nascimento">${nascTxt}</td>
+                  <td class="td-secundario tabular" data-label="CPF">${formatarCpf(p.cpf)}</td>
+                  <td class="td-secundario tabular" data-label="Telefone">${formatarTelefone(p.telefone)}</td>
+                  <td class="td-secundario" data-label="Anamnese">${anamneseResumo}</td>
+                  <td class="td-acoes" data-label="Ações">
+                    <a class="btn btn-fantasma btn-sm btn-acao-principal" href="prontuario.html?paciente=${p.id}">Prontuário</a>
                     <button type="button" class="btn btn-fantasma btn-sm" data-editar-paciente="${p.id}">Editar</button>
                     <button type="button" class="btn btn-perigo btn-sm" data-remover-paciente="${p.id}">Excluir</button>
                   </td>
